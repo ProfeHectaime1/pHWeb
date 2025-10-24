@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mkGeometricTransform</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="transformacion">
+
+  <a href="../Transformaciones.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+  <h1>mkGeometricTransform</h1>
+
+  <div class="gif">
+    <img src="gifs/720/mkGeometricTransform.gif" alt="mkGeometricTransform">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Transforma primero el objeto inicial en una figura geométrica (o lista de figuras) definida por el usuario y, tras ello, lo convierte en el <code>Mobject</code> final. Permite elegir el método de transformación entre fases mediante presets.
+    </p>
+    <p>
+      La figura intermedia puede ser cualquier <code>VMobject</code>, incluyendo texto. En caso de usar texto u objetos con relleno, es imprescindible controlar la <code>opacity</code> para asegurar su correcta visualización.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>vgrp1</code> (<code>Mobject</code>): Objeto o grupo inicial a transformar.</li>
+      <li><code>vgrp2</code> (<code>Mobject</code>): Objeto o grupo destino final de la transformación.</li>
+      <li><code>geometry</code> (<code>list</code> de <code>VMobject</code>, por defecto <code>[Circle(), Dot(), Triangle(), Square(), Ellipse(), Rectangle(), Line(), RegularPolygon(), Star(), RoundedRectangle()]</code>): Define las formas intermedias. Puede incluir cualquier objeto, incluso texto personalizado.</li>
+      <li><code>preset1</code> (<code>int</code> o <code>str</code>): Método de transformación de <code>vgrp1</code> hacia la geometría, usando <code>get_preset</code>.</li>
+      <li><code>preset2</code> (<code>int</code> o <code>str</code>): Método de transformación desde la geometría hasta <code>vgrp2</code>, también con <code>get_preset</code>.</li>
+      <li><code>scale_factor</code> (<code>int</code>): Escala aplicada a las figuras intermedias.</li>
+      <li><code>color</code> (<code>ManimColor</code>): Color asignado a la geometría.</li>
+      <li><code>margin</code> (<code>float</code>): Margen con respecto al borde de la cámara para que las formas no salgan del área visible.</li>
+      <li><code>opacity</code> (<code>float</code> entre 0 y 1): Opacidad de las formas. Fundamental cuando se usan textos o rellenos visibles.</li>
+      <li><code>**kwargs</code>: Argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.0</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>soff</code> (por defecto <code>0.4</code>), <code>divide</code>, <code>option</code>, <code>nos</code>).</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
+  <div class="nav-arrows">
+    <a href="GeometricTransform.html" class="nav-arrow" title="Anterior">&lt;</a>
+    <a href="GlitchRotateTransform.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

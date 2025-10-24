@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RotateTransform</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="transformacion">
+
+  <a href="../Transformaciones.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+
+  <h1>RotateTransform</h1>
+
+  <div class="gif">
+    <img src="gifs/720/RotateTransform.gif" alt="RotateTransform">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Transforma realizando rotaciones completas y desplazamientos individuales en cada <code>submobject</code>. Es una animación dinámica donde cada componente gira alrededor antes de transformarse en su objetivo.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>vgrp1</code> (<code>Mobject</code>): <code>Mobject</code> o <code>VGroup</code> a transformar.</li>
+      <li><code>vgrp2</code> (<code>Mobject</code>): <code>Mobject</code> o <code>VGroup</code> en que se transforma.</li>
+      <li><code>laps</code> (<code>int</code>, por defecto <code>2</code>): Número de rotaciones completas que realiza cada objeto antes de transformarse.</li>
+      <li><code>option</code> (<code>int</code>, por defecto <code>0</code>): Controla cómo se gestionan los elementos adicionales:</li>
+    </ul>
+    <ul style="margin-left: 2rem; margin-top: 0.5rem; font-size: 0.95rem;">
+      <li><code>0:</code> Copia los elementos individuales de <code>vgrp1</code> según sea necesario.</li>
+      <li><code>1:</code> Duplica todo el <code>vgrp1</code> completo para emparejarlo con <code>vgrp2</code>.</li>
+    </ul>
+    <ul>
+      <li><code>margin</code> (<code>float</code>, por defecto <code>4.0</code>): Determina el área visible donde se permite que roten los objetos.</li>
+      <li><code>**kwargs</code>: Argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>divide</code>, <code>option</code>, <code>nos</code>).</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
+  <div class="nav-arrows">
+    <a href="ReplacemenTransform.html" class="nav-arrow" title="Anterior">&lt;</a>
+    <a href="SepNReuTransform.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

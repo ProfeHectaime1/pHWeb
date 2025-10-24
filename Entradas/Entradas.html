@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entradas pH</title>
+  <link rel="stylesheet" href="../estilos.css">
+  <link rel="stylesheet" href="../modo-claro-oscuro.css">
+
+  <!-- Firebase SDK y protección -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+  </script>
+
+  <!-- Estilo de fondo dinámico -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      const esClaro = modoGuardado === 'claro';
+      if (esClaro) document.body.classList.add('light');
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = esClaro;
+    });
+  </script>
+  <style>
+    body:not(.light) {
+      background-image: url('../fondo-index.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    body.light {
+      background-image: url('../fondo-index-claro.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../contenido.html" class="back-up" title="Volver un nivel atrás">⬑</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">←</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+  <h1>ENTRADAS</h1>
+  <h2>Entradas pH</h2>
+
+  <div class="grid">
+    <a href="pH Entradas/CreateFunctions.html" class="card">
+      <img src="pH Entradas/gifs/480/CreateFunctions.gif" alt="CreateFunctions" />
+      <div class="caption">CreateFunctions</div>
+    </a>
+    <a href="pH Entradas/Crear.html" class="card">
+      <img src="pH Entradas/gifs/480/Crear.gif" alt="Crear" />
+      <div class="caption">Crear</div>
+    </a>
+    <a href="pH Entradas/CrearAll.html" class="card">
+      <img src="pH Entradas/gifs/480/CrearAll.gif" alt="CrearAll" />
+      <div class="caption">CrearAll</div>
+    </a>
+    <a href="pH Entradas/Draw.html" class="card">
+      <img src="pH Entradas/gifs/480/Draw.gif" alt="Draw" />
+      <div class="caption">Draw</div>
+    </a>
+    <a href="pH Entradas/DrawBF.html" class="card">
+      <img src="pH Entradas/gifs/480/DrawBF.gif" alt="DrawBF" />
+      <div class="caption">DrawBF</div>
+    </a>
+    <a href="pH Entradas/DrawFunction.html" class="card">
+      <img src="pH Entradas/gifs/480/DrawFunction.gif" alt="DrawFunction" />
+      <div class="caption">DrawFunction</div>
+    </a>
+    <a href="pH Entradas/DrawGlow.html" class="card">
+      <img src="pH Entradas/gifs/480/DrawGlow.gif" alt="DrawGlow" />
+      <div class="caption">DrawGlow</div>
+    </a>
+    <a href="pH Entradas/DrawGlowAll.html" class="card">
+      <img src="pH Entradas/gifs/480/DrawGlowAll.gif" alt="DrawGlowAll" />
+      <div class="caption">DrawGlowAll</div>
+    </a>
+    <a href="pH Entradas/EnterFadeIn.html" class="card">
+      <img src="pH Entradas/gifs/480/EnterFadeIn.gif" alt="EnterFadeIn" />
+      <div class="caption">EnterFadeIn</div>
+    </a>
+    <a href="pH Entradas/FadIn.html" class="card">
+      <img src="pH Entradas/gifs/480/FadIn.gif" alt="FadIn" />
+      <div class="caption">FadIn</div>
+    </a>
+    <a href="pH Entradas/FadeInAll.html" class="card">
+      <img src="pH Entradas/gifs/480/FadeInAll.gif" alt="FadeInAll" />
+      <div class="caption">FadeInAll</div>
+    </a>
+    <a href="pH Entradas/Generate.html" class="card">
+      <img src="pH Entradas/gifs/480/Generate.gif" alt="Generate" />
+      <div class="caption">Generate</div>
+    </a>
+    <a href="pH Entradas/IntoIt.html" class="card">
+      <img src="pH Entradas/gifs/480/IntoIt.gif" alt="IntoIt" />
+      <div class="caption">IntoIt</div>
+    </a>
+    <a href="pH Entradas/InvertedFadeIn.html" class="card">
+      <img src="pH Entradas/gifs/480/InvertedFadeIn.gif" alt="InvertedFadeIn" />
+      <div class="caption">InvertedFadeIn</div>
+    </a>
+    <a href="pH Entradas/InvertedFadeIn2.html" class="card">
+      <img src="pH Entradas/gifs/480/InvertedFadeIn2.gif" alt="InvertedFadeIn2" />
+      <div class="caption">InvertedFadeIn2</div>
+    </a>
+    <a href="pH Entradas/InvertedFadeIn3.html" class="card">
+      <img src="pH Entradas/gifs/480/InvertedFadeIn3.gif" alt="InvertedFadeIn3" />
+      <div class="caption">InvertedFadeIn3</div>
+    </a>
+    <a href="pH Entradas/ProgressiveFadeIn.html" class="card">
+      <img src="pH Entradas/gifs/480/ProgressiveFadeIn.gif" alt="ProgressiveFadeIn" />
+      <div class="caption">ProgressiveFadeIn</div>
+    </a>
+    <a href="pH Entradas/RotFadeIn.html" class="card">
+      <img src="pH Entradas/gifs/480/RotFadeIn.gif" alt="RotFadeIn" />
+      <div class="caption">RotFadeIn</div>
+    </a>
+    <a href="pH Entradas/rRotateFadeIn.html" class="card">
+      <img src="pH Entradas/gifs/480/rRotateFadeIn.gif" alt="rRotateFadeIn" />
+      <div class="caption">rRotateFadeIn</div>
+    </a>
+  </div>
+
+
+  <div style="margin-top: 3rem;"></div>
+  <a class="back" href="../index.html">&larr; Volver al inicio</a>
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

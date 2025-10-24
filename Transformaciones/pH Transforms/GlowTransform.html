@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowTransform</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="transformacion">
+
+  <a href="../Transformaciones.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+
+  <h1>GlowTransform</h1>
+
+  <div class="gif">
+    <img src="gifs/720/GlowTransform.gif" alt="GlowTransform">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Transforma dos <code>Mobjects</code> que tienen un efecto de destello (<i>glow</i>). Para ello, separa ambos objetos de sus destellos y transforma por un lado los <code>Mobjects</code> (siguiendo el <code>preset</code> indicado) y por otro los <i>glows</i>, los cuales se transforman según la <code>option</code> definida.
+    </p>
+    <p>
+      No funciona con un conjunto de <code>Mobjects</code> individuales con <i>glow</i> dentro de un <code>VGroup</code>, pero sí si el <code>VGroup</code> completo tiene aplicado un <i>glow</i> como un todo.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>mobject1</code> (<code>Mobject</code>): <code>Mobject</code> a transformar.</li>
+      <li><code>mobject2</code> (<code>Mobject</code>): <code>Mobject</code> en que se transforma.</li>
+      <li><code>preset</code> (<code>int</code> o <code>str</code>, por defecto <code>1</code>): Define el tipo de transformación entre los <code>Mobjects</code> mediante <code>get_preset</code>.</li>
+      <li><code>option</code> (<code>int</code>, por defecto <code>0</code>): Determina el comportamiento visual de los <i>glows</i> durante la transformación.</li>
+      <li><code>seed</code> (<code>int</code>, opcional): Valor de semilla para controlar la aleatoriedad (si la hubiera).</li>
+      <li><code>**kwargs</code>: argumentos adicionales para la animación de los <code>Mobjects</code> (como los definidos en <code>default_args</code>).</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
+  <div class="nav-arrows">
+    <a href="GlitchRotateTransform.html" class="nav-arrow" title="Anterior">&lt;</a>
+    <a href="InvertedTransform.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

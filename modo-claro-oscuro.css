@@ -1,0 +1,118 @@
+:root {
+  --bg-color: #000;
+  --text-color: #fff;
+  --card-bg: #111;
+  --card-text: #ccc;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.2);
+  --card-title-color: #ffffff;
+  --card-description-color: #cccccc;
+  --entradas-color: #7CFC00;
+  --salidas-color: #FF5C5C;
+  --transformaciones-color: #ffb347;
+  --caption-color: #ccc;
+  --section-title-color: #ffd700;
+  --link-color: #add8e6;
+  --back-link-color: #ada8a8; 
+}
+
+body.light {
+  --bg-color: #f9f9f9;
+  --text-color: #000;
+  --card-bg: #fff;
+  --card-text: #333;
+  --card-title-color: #111111;
+  --card-description-color: #444444;
+  --entradas-color: #4ca300;
+  --salidas-color: #d50202;
+  --transformaciones-color: #be7816;
+  --caption-color: #333;
+  --section-title-color: #be7816;
+  --link-color: #0645ad;
+  --back-link-color: #302f2f;  
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: sans-serif;
+  text-align: center;
+  padding: 3rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.mode-toggle-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gear-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  background-color: #555;
+  border-radius: 24px;
+  transition: background-color 0.3s;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.switch input:checked + .slider {
+  transform: translateX(26px);
+}
+
+.switch.hidden {
+  display: none;
+}
+.mode-toggle-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.gear-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+.mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  transform: scale(1.4);
+  cursor: pointer;
+  user-select: none;
+  color: inherit;
+  z-index: 1000;
+}

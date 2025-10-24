@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnterFadeIn</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="entrada">
+
+  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+
+  <h1>EnterFadeIn</h1>
+
+  <div class="gif">
+    <img src="gifs/720/EnterFadeIn.gif" alt="EnterFadeIn">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Introduce un objeto o grupo en escena haciendo que aparezca desde el exterior de la cámara, dividido en submobjects. Cada parte entra realizando rotaciones mientras viaja desde posiciones externas hacia su ubicación final.
+    </p>
+    <p>
+      La dirección de entrada puede configurarse desde puntos aleatorios, esquinas principales o incluso todos los extremos de la cámara.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>vgrp</code> (<code>Mobject</code>): Objeto o grupo de objetos que será introducido en escena.</li>
+      <li><code>points</code> (<code>int</code>, por defecto <code>6</code>): Número de posibles puntos desde los que pueden emerger los objetos. Solo se usa si <code>corners</code> y <code>all_corners</code> están desactivados.</li>
+      <li><code>corners</code> (<code>bool</code>, por defecto <code>False</code>): Si es <code>True</code>, los objetos aparecerán desde las 4 esquinas principales: UL, UR, DL, DR.</li>
+      <li><code>all_corners</code> (<code>bool</code>, por defecto <code>False</code>): Si es <code>True</code>, los objetos aparecerán desde las 4 esquinas + los 4 lados (LEFT, RIGHT, UP, DOWN).</li>
+      <li><code>buff</code> (<code>float</code>, por defecto <code>8.0</code>): Distancia desde la cámara desde la cual se generarán los objetos entrantes.</li>
+      <li><code>**kwargs</code>: Argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>divide</code>, <code>rand</code>, <code>option</code>, <code>preset</code>, <code>run_time</code>, <code>nos</code>).</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Entradas.html">← Volver a la biblioteca</a>
+  <div class="nav-arrows">
+  <a href="DrawGlowAll.html" class="nav-arrow" title="Anterior">&lt;</a>
+  <a href="FadIn.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

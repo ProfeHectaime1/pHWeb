@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro - Biblioteca Visual pH</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="modo-claro-oscuro.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    body:not(.light) {
+      background-image: url('fondo-index-pH.png');
+    }
+
+    body.light {
+      background-image: url('fondo-index-claro-pH.png');
+    }
+
+    .mode-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      color: inherit;
+      transform: scale(1.4);
+      z-index: 1000;
+    }
+
+    .registro-container {
+      background: var(--card-bg-color, rgba(0, 0, 0, 0.92));
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(150, 143, 143, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      margin-top: 10vh;
+    }
+
+    body.light .registro-container {
+      background: var(--card-bg-color-light, rgba(255, 255, 255, 0.92));
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--card-title-color);
+    }
+
+    input {
+      margin: 0.5rem 0;
+      padding: 0.6rem;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    label.checkbox {
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      color: var(--text-color, #ccc);
+    }
+
+    label.checkbox input {
+      margin-right: 8px;
+      scale: 2;
+    }
+
+    body.light label.checkbox {
+      color: #000;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #ad0606;
+      color: #fff;
+    }
+
+    body.light button {
+      background-color: #c74242;
+      color: #000;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      margin-top: 2.0rem;
+      color: var(--text-color, #aaa);
+    }
+
+    .mensaje-exito {
+      color: green;
+      margin-top: 1rem;
+    }
+
+    .mensaje-error {
+      color: red;
+      margin-top: 1rem;
+    }
+
+    .volver-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--text-color, #fff);
+    }
+
+    body.light .volver-link {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+  <div class="registro-container">
+    <h2>Registro de acceso</h2>
+    <input type="text" id="nombre" placeholder="Nombre de usuario de Patreon (es importante que sea correcto)" required />
+    <input type="email" id="email" placeholder="Correo electrónico" required />
+    <input type="password" id="password" placeholder="Contraseña (solo para esta web)" required />
+
+    <label class="checkbox">
+      <input type="checkbox" id="recibir-correos" />
+      Pulsa para recibir SOLO correos con actualizaciones de esta web (también estarán en Patreon).
+    </label>
+
+    <button onclick="registrarse()">Registrarse</button>
+    <p class="note">En cuanto confirme el usuario, tendrás acceso autorizado.</p>
+    <p id="registro-exito" class="mensaje-exito"></p>
+    <p id="registro-error" class="mensaje-error"></p>
+    <a href="index.html" class="volver-link">← Volver al índice</a>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+      storageBucket: "ph-library-c6153.appspot.com",
+      messagingSenderId: "406029474757",
+      appId: "1:406029474757:web:7e862f9edfdb2a6219c9ac",
+      measurementId: "G-YNQQKXFQ7M"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function registrarse() {
+      const nombre = document.getElementById("nombre").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const recibirCorreos = document.getElementById("recibir-correos").checked;
+      const exito = document.getElementById("registro-exito");
+      const error = document.getElementById("registro-error");
+
+      exito.textContent = "";
+      error.textContent = "";
+
+      try {
+        const cred = await auth.createUserWithEmailAndPassword(email, password);
+        await db.collection("autorizados").doc(email).set({
+          nombre,
+          email,
+          autorizado: false,
+          creado: new Date(),
+          recibirCorreos: recibirCorreos
+        });
+        exito.textContent = "Registro completado correctamente. Espera autorización. Te enviaré un correo cuando se autorice";
+        auth.signOut();
+      } catch (e) {
+        if (e.code === "auth/email-already-in-use") {
+            error.textContent = "Ese correo ya está registrado. Si es tuyo, espera autorización.";
+        } else if (e.code === "auth/invalid-email") {
+            error.textContent = "El correo no es válido.";
+        } else if (e.code === "auth/weak-password") {
+            error.textContent = "La contraseña debe tener al menos 6 caracteres.";
+        } else {
+            error.textContent = "Error: " + e.message;
+        }
+        }
+    }
+  </script>
+
+  <script>
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado === 'claro') {
+      document.body.classList.add('light');
+    }
+
+    document.getElementById("modo-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

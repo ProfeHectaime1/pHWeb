@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descrear</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="salida">
+
+  <a href="../Salidas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+
+  <h1>Descrear</h1>
+
+  <div class="gif">
+    <img src="gifs/720/Descrear.gif" alt="Descrear">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Destruye un <code>Mobject</code> o <code>VGroup</code> en escena utilizando la animación <code>Uncreate</code>.
+      Si está activado el sonido (<code>sound = True</code>), se añadirán efectos sincronizados con la animación:
+      una máquina de escribir si es texto, y movimiento si no lo es.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>mobject</code> (<code>Mobject</code>): Objeto o grupo a eliminar de la escena.</li>
+      <li><code>**kwargs</code>: Argumentos adicionales de <code>default_args</code> como <code>debug</code>, <code>lag</code> (por defecto <code>0.0</code>), <code>sound</code>, <code>seed</code>, <code>run_time</code>.</li>
+    </ul>
+  </div>
+
+  <div class="nav-arrows">
+    <a href="CoolFadeOut.html" class="nav-arrow" title="Anterior">&lt;</a>
+    <a href="ExitFadeOut.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+
+  <a class="back" href="../Salidas.html">← Volver a la biblioteca</a>
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

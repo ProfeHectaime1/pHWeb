@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transformaciones pH</title>
+  <link rel="stylesheet" href="../estilos.css">
+  <link rel="stylesheet" href="../modo-claro-oscuro.css">
+
+  <!-- Firebase SDK y protección -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+  </script>
+
+
+  <!-- Estilo de fondo dinámico -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      const esClaro = modoGuardado === 'claro';
+      if (esClaro) document.body.classList.add('light');
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = esClaro;
+    });
+  </script>
+  <style>
+    body:not(.light) {
+      background-image: url('../fondo-index.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    body.light {
+      background-image: url('../fondo-index-claro.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <a href="../contenido.html" class="back-up" title="Volver un nivel atrás">⬑</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">←</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+  <h1>TRANSFORMACIONES</h1>
+  <h2>Transformaciones pH</h2>
+
+  <div class="grid">
+    <a href="pH Transforms/BlackHoleTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/BlackHoleTransform.gif" alt="BlackHoleTransform" />
+      <div class="caption">BlackHoleTransform</div>
+    </a>
+    <a href="pH Transforms/mkBlackHoleTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/mkBlackHoleTransform.gif" alt="mkBlackHoleTransform" />
+      <div class="caption">mkBlackHoleTransform</div>
+    </a>
+    <a href="pH Transforms/GeometricTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/GeometricTransform.gif" alt="GeometricTransform" />
+      <div class="caption">GeometricTransform</div>
+    </a>
+    <a href="pH Transforms/mkGeometricTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/mkGeometricTransform.gif" alt="mkGeometricTransform" />
+      <div class="caption">mkGeometricTransform</div>
+    </a>
+    <a href="pH Transforms/GlitchRotateTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/GlitchRotateTransform.gif" alt="GlitchRotateTransform" />
+      <div class="caption">GlitchRotateTransform</div>
+    </a>
+    <a href="pH Transforms/GlowTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/GlowTransform.gif" alt="GlowTransform" />
+      <div class="caption">GlowTransform</div>
+    </a>
+    <a href="pH Transforms/InvertedTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/InvertedTransform.gif" alt="InvertedTransform" />
+      <div class="caption">InvertedTransform</div>
+    </a>
+    <a href="pH Transforms/LegoTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/LegoTransform.gif" alt="LegoTransform" />
+      <div class="caption">LegoTransform</div>
+    </a>
+    <a href="pH Transforms/MegaRotateTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/MegaRotateTransform.gif" alt="MegaRotateTransform" />
+      <div class="caption">MegaRotateTransform</div>
+    </a>
+    <a href="pH Transforms/OneByOneTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/OneByOneTransform.gif" alt="OneByOneTransform" />
+      <div class="caption">OneByOneTransform</div>
+    </a>
+    <a href="pH Transforms/ReplacemenTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/ReplacemenTransform.gif" alt="ReplacemenTransform" />
+      <div class="caption">ReplacemenTransform</div>
+    </a>
+    <a href="pH Transforms/RotateTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/RotateTransform.gif" alt="RotateTransform" />
+      <div class="caption">RotateTransform</div>
+    </a>
+    <a href="pH Transforms/SepNReuTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/SepNReuTransform.gif" alt="SepNReuTransform" />
+      <div class="caption">SepNReuTransform</div>
+    </a>
+    <a href="pH Transforms/SortedTransform.html" class="card">
+      <img src="pH Transforms/gifs/480/SortedTransform.gif" alt="SortedTransform" />
+      <div class="caption">SortedTransform</div>
+    </a>
+    <a href="pH Transforms/TransforMatchingShapes.html" class="card">
+      <img src="pH Transforms/gifs/480/TransforMatchingShapes.gif" alt="TransforMatchingShapes" />
+      <div class="caption">TransforMatchingShapes</div>
+    </a>
+  </div>
+
+
+  <div style="margin-top: 3rem;"></div>
+  <a class="back" href="../index.html">&larr; Volver al inicio</a>
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OneByOneTransform</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="transformacion">
+
+  <a href="../Transformaciones.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+  
+  <h1>OneByOneTransform</h1>
+
+  <div class="gif">
+    <img src="gifs/720/OneByOneTransform.gif" alt="OneByOneTransform">
+  </div>
+
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>Transforma cada uno como <a href="SortedTransform.html" class="enlace"><code>SortedTransform</code></a>, pero añadiendo giros y desplazamientos que pueden ser aleatorios. No hace copias: si sobran o faltan <code>submobjects</code>, se usa <code>FadeIn</code> o <code>FadeOut</code>. Muy importante su argumento <code>option</code>, puesto que determina una combinación de características:</p>
+    <div style="padding-left: 2rem;">
+      – <code>inverted_arc</code> (<code>bool</code>): Si es <code>True</code>, alterna los arcos de signo.<br>
+      – <code>rand</code> (<code>bool</code>): Activa la opción aleatoria para cada valor de las transformaciones (pero no de los <code>FadeIn</code> y <code>FadeOut</code>).<br>
+      – <code>inverted_shift</code> (<code>bool</code>): Si es <code>True</code>, alterna la dirección de desplazamiento en los <code>FadeIn</code> y <code>FadeOut</code>.<br>
+      – <code>random_shift</code> (<code>bool</code>): Si es <code>True</code>, la dirección de los desplazamientos será aleatoria.<br>
+      – <code>random_scale</code> (<code>bool</code>): Si es <code>True</code>, se escalarán los <code>mobjects</code> dentro del intervalo definido en <code>scale_range</code>.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>vgrp1</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> a transformar.</li>
+      <li><code>vgrp2</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> en que se transforma.</li>
+      <li><code>option</code> (<code>int</code>, por defecto <code>1</code>): Número que representa qué características va a tener la transformación:</li>
+      <li><code>*Las características son: [inverted_arc, rand, inverted_shift, random_shift, random_scale]</code></li>
+    <ul style="margin-left: 2rem; margin-top: 0.5rem; font-size: 0.95rem;">
+      <li><code>0:</code> [False, False, False, False, False] → Por defecto: Ninguna característica.</li>
+      <li><code>1:</code> [True, True, True, True, True] → Todas las características activadas.</li>
+      <li><code>2:</code> [True, False, True, False, False] → Solo inversión activada.</li>
+      <li><code>3:</code> [False, True, False, True, True] → Solo aleatorización activada.</li>
+      <li><code>4:</code> [True, True, False, False, False] → Solo arco activado.</li>
+      <li><code>5:</code> [True, True, True, True, False] → Arco con desplazamiento activado.</li>
+      <li><code>6:</code> [True, True, False, False, True] → Arco con escalado activado.</li>
+      <li><code>7:</code> [False, False, True, True, False] → Solo desplazamiento activado.</li>
+    </ul>
+      <li><code>arc</code> (<code>float</code>, por defecto <code>0.0</code>): El ángulo que van a describir los <code>mobjects</code> al transformarse.</li>
+      <li><code>shift</code> (<code>np.array</code>, opcional): Dirección fija de desplazamiento para los efectos de aparición y desaparición.</li>
+      <li><code>scale</code> (<code>float</code>, por defecto <code>1.0</code>): Factor de escala por defecto para las transformaciones.</li>
+      <li><code>scale_range</code> (<code>list</code>, por defecto <code>[0.01, 5]</code>): Define el rango de valores permitidos para el escalado aleatorio.</li>
+      <li><code>**kwargs</code>: argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>divide</code>, <code>option</code>, <code>nos</code>).</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
+  <div class="nav-arrows">
+    <a href="MegaRotateTransform.html" class="nav-arrow" title="Anterior">&lt;</a>
+    <a href="ReplacemenTransform.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>

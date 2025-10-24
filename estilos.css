@@ -1,0 +1,133 @@
+body {
+  background-image: url('Fondo Index.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: sans-serif;
+  color: var(--text-color);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4 15px var(--shadow-color);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.2s, opacity 0.2s;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 20px var(--shadow-hover);
+  opacity: 1;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.2rem;
+}
+
+h2 {
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.caption {
+  margin-top: 0.5rem;
+  color: var(--caption-color);
+  font-size: 0.9rem;
+}
+
+.note {
+  margin-top: 2rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+:root {
+  --card-title-color: #ffffff;
+  --card-description-color: #cccccc;
+}
+
+body.light {
+  --card-title-color: #111111;
+  --card-description-color: #444444;
+}
+
+.card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.7rem;
+  color: var(--card-title-color);
+  transition: color 0.3s;
+}
+
+.card p {
+  font-size: 1rem;
+  color: var(--card-description-color);
+}
+
+.entradas h2 {
+  color: var(--entradas-color);
+}
+
+.salidas h2 {
+  color: var(--salidas-color);
+}
+
+.transformaciones h2 {
+  color: var(--transformaciones-color);
+}
+.back-arrow {
+  position: fixed;
+  top: 2.5rem;
+  left: 1rem;
+  font-size: 2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  z-index: 999;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.back-arrow:hover {
+  opacity: 1;
+}
+.back-up {
+  position: fixed;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 2rem;
+  color: var(--text-color);
+  text-decoration: none;
+  z-index: 999;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.back-up:hover {
+  opacity: 1;
+}

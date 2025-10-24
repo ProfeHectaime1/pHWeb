@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrearAll</title>
+  <link rel="stylesheet" href="../../estilos-detalle.css">
+  <link rel="stylesheet" href="../../modo-claro-oscuro.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq2ctzCPsn_104Ad1SjJq5MCz-1NTCz8o",
+      authDomain: "ph-library-c6153.firebaseapp.com",
+      projectId: "ph-library-c6153",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    async function protegerPagina() {
+      auth.onAuthStateChanged(async user => {
+        if (!user) {
+          window.location.href = "../../index.html";
+          return;
+        }
+
+        try {
+          const doc = await db.collection("autorizados").doc(user.email).get();
+          if (!doc.exists || !doc.data().autorizado) {
+            window.location.href = "../../index.html";
+          }
+        } catch (e) {
+          console.error("Error al verificar autorización:", e);
+          window.location.href = "../../index.html";
+        }
+      });
+    }
+
+    protegerPagina();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+
+      const checkbox = document.querySelector('.switch input[type="checkbox"]');
+      if (checkbox) checkbox.checked = modoGuardado === 'claro';
+    });
+  </script>
+</head>
+<body class="entrada">
+
+  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+
+  <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+
+  <h1>CrearAll</h1>
+
+  <div class="gif">
+    <img src="gifs/720/CrearAll.gif" alt="CrearAll">
+  </div>
+
+  <div class="section">
+    <h2>¿Qué hace?</h2>
+    <p>
+      Versión extendida de <a href="Crear.html" class="enlace"><code>Crear</code></a>, diseñada para aplicar animaciones de entrada controladas a múltiples <code>Mobjects</code> o <code>VGroups</code>. Usa internamente la animación <code>Create</code> (o <code>Crear</code>) sobre cada elemento individual.
+    </p>
+    <p>
+      Tiene un control inteligente sobre la reproducción de sonidos:
+    </p>
+    <ul style="margin-left: 2rem; font-size: 0.95rem;">
+      <li>Si <code>lag = 0.0</code>: solo se permite un sonido de texto y uno de no texto a la vez.</li>
+      <li>Si <code>lag &gt; 0.1</code>: se permiten varios sonidos simultáneos.</li>
+    </ul>
+    <p>
+      Además, si <code>divide = True</code>, los <code>VGroups</code> se descomponen automáticamente y se aplica <code>Crear</code> a cada uno de sus componentes.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Parámetros</h2>
+    <ul>
+      <li><code>*vgrp</code> (<code>Mobjects/VGroups</code>): Lista de objetos a introducir en la escena.</li>
+      <li><code>**kwargs</code>: Hereda todos los argumentos de <a href="Crear.html" class="enlace"><code>Crear</code></a>, como <code>debug</code>, <code>lag</code>, <code>sound</code>, <code>seed</code>, <code>run_time</code>, etc.</li>
+    </ul>
+  </div>
+
+  <a class="back" href="../Entradas.html">← Volver a la biblioteca</a>
+  
+  <div class="nav-arrows">
+  <a href="Crear.html" class="nav-arrow" title="Anterior">&lt;</a>
+  <a href="CreateFunctions.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  </div>
+  <script>
+    // Cargar modo guardado
+    window.addEventListener('DOMContentLoaded', () => {
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Alternar modo al hacer clic en el sol
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+    });
+  </script>
+</body>
+</html>
