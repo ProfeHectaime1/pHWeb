@@ -65,40 +65,6 @@
     <img src="gifs/720/DrawFunction.gif" alt="DrawFunction">
   </div>
 
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Crea una función en escena simulando que un punto la va trazando a lo largo del eje X. Este punto se desplaza a lo largo del gráfico, y si se proporciona una cámara, la escena se adapta y acompaña el movimiento con escalado dinámico.
-    </p>
-    <p>
-      Es útil para representar gráficamente funciones a mano alzada, visualmente suaves. El efecto de trazo puede potenciarse con brillo (<code>glow</code>), y desaparecer elegantemente con un <code>FadeOut</code> al final.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>funcion</code> (<code>Callable</code>): Función matemática a representar.</li>
-      <li><code>plano</code> (<code>NumberPlane</code>): Plano donde se graficará la función.</li>
-      <li><code>rango</code> (<code>list</code>): Rango de valores de <code>x</code> para dibujar la función.</li>
-      <li><code>glow</code> (<code>bool</code>, por defecto <code>False</code>): Si es <code>True</code>, añade un efecto de destello al punto trazador.</li>
-      <li><code>time</code> (<code>float</code>, por defecto <code>5.0</code>): Tiempo total de la animación.</li>
-      <li><code>cam</code> (<code>Camera</code>, opcional): Cámara que sigue el movimiento. Si no se especifica, no hay desplazamiento de cámara.</li>
-      <li><code>cam_scale</code> (<code>float</code>, por defecto <code>0.3</code>): Escala progresiva que aplicará la cámara durante la animación.</li>
-      <li><code>fadeout</code> (<code>bool</code>, por defecto <code>True</code>): Si es <code>True</code>, el punto desaparecerá al final con <code>FadeOut</code>.</li>
-      <li><code>disc</code> (<code>list</code>, opcional): Lista de discontinuidades para evitar errores visuales en la creación de la curva.</li>
-      <li><code>fcolor</code> (<code>str</code> o <code>ManimColor</code>, por defecto <code>SROJO</code>): Color de la función generada.</li>
-      <li><code>**kwargs</code>: Argumentos adicionales aplicados al <code>Dot</code> (punto trazador):</li>
-    </ul>
-    <ul style="margin-left: 2rem; font-size: 0.95rem;">
-      <li><code>point</code>: <code>Point3DLike</code>, por defecto <code>ORIGIN</code>.</li>
-      <li><code>radius</code>: <code>float</code>, tamaño del punto. Por defecto el estándar de Manim.</li>
-      <li><code>stroke_width</code>: <code>float</code>, grosor del borde.</li>
-      <li><code>fill_opacity</code>: <code>float</code>, opacidad del punto (de 0 a 1).</li>
-      <li><code>color</code>: <code>ManimColor</code>, color del punto trazador.</li>
-    </ul>
-  </div>
-
   <a class="back" href="../Entradas.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">
   <a href="DrawBF.html" class="nav-arrow" title="Anterior">&lt;</a>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CrearAll</title>
+  <title>mkrRotateFadeIn</title>
   <link rel="stylesheet" href="../../estilos-detalle.css">
   <link rel="stylesheet" href="../../modo-claro-oscuro.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
@@ -54,47 +54,24 @@
 </head>
 <body class="entrada">
 
-  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
 
   <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
 
 
-  <h1>CrearAll</h1>
+  <h1>mkrRotateFadeIn</h1>
 
-  <div class="gif">
-    <img src="gifs/720/CrearAll.gif" alt="CrearAll">
+  <div class="webm">
+    <video src="webm/mkrRotateFadeIn.webm" autoplay muted loop playsinline></video>
   </div>
+  <h1 class="overlay-title">mkrRotateFadeIn</h1>
 
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Versión extendida de <a href="Crear.html" class="enlace"><code>Crear</code></a>, diseñada para aplicar animaciones de entrada controladas a múltiples <code>Mobjects</code> o <code>VGroups</code>. Usa internamente la animación <code>Create</code> (o <code>Crear</code>) sobre cada elemento individual.
-    </p>
-    <p>
-      Tiene un control inteligente sobre la reproducción de sonidos:
-    </p>
-    <ul style="margin-left: 2rem; font-size: 0.95rem;">
-      <li>Si <code>lag = 0.0</code>: solo se permite un sonido de texto y uno de no texto a la vez.</li>
-      <li>Si <code>lag &gt; 0.1</code>: se permiten varios sonidos simultáneos.</li>
-    </ul>
-    <p>
-      Además, si <code>divide = True</code>, los <code>VGroups</code> se descomponen automáticamente y se aplica <code>Crear</code> a cada uno de sus componentes.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>*vgrp</code> (<code>Mobjects/VGroups</code>): Lista de objetos a introducir en la escena.</li>
-      <li><code>**kwargs</code>: Hereda todos los argumentos de <a href="Crear.html" class="enlace"><code>Crear</code></a>, como <code>debug</code>, <code>lag</code>, <code>sound</code>, <code>seed</code>, <code>run_time</code>, etc.</li>
-    </ul>
-  </div>
 
   <a class="back" href="../Entradas.html">← Volver a la biblioteca</a>
-  
   <div class="nav-arrows">
-  <a href="Crear.html" class="nav-arrow" title="Anterior">&lt;</a>
-  <a href="CreateFunctions.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  <a href="rRotateFadeIn.html" class="nav-arrow" title="Anterior">&lt;</a>
+  <a href="SpinInto.html" class="nav-arrow" title="Siguiente">&gt;</a>
   </div>
   <script>
     // Cargar modo guardado

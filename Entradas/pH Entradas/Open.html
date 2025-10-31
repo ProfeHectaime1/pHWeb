@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DrawGlowAll</title>
+  <title>Open</title>
   <link rel="stylesheet" href="../../estilos-detalle.css">
   <link rel="stylesheet" href="../../modo-claro-oscuro.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
@@ -54,37 +54,24 @@
 </head>
 <body class="entrada">
 
-  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
+  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>  <a href="../Entradas.html" class="back-up" title="Volver un nivel atrás">⬑</a>
+  <a href="javascript:history.back()" class="back-arrow" title="Volver atrás">&larr;</a>
 
   <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
 
 
-  <h1>DrawGlowAll</h1>
+  <h1>Open</h1>
 
-  <div class="gif">
-    <img src="gifs/720/DrawGlowAll.gif" alt="DrawGlowAll">
+  <div class="webm">
+    <video src="webm/Open.webm" autoplay muted loop playsinline></video>
   </div>
+  <h1 class="overlay-title">Open</h1>
 
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Crea varios <code>Mobjects</code> o <code>VGroups</code> con efecto <i>glow</i> (resplandor) utilizando la animación <a href="DrawGlow.html" class="enlace"><code>DrawGlow</code></a>. Cada objeto se dibuja junto con su resplandor en orden, uno tras otro, aplicando un retardo configurable.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>*vgrp</code> (<code>Mobject con glow</code>): Lista de objetos o grupos con destello que serán introducidos en escena.</li>
-      <li><code>lag</code> (<code>float</code>, por defecto <code>0.05</code>): Tiempo de retardo entre la aparición de cada uno de los objetos.</li>
-      <li><code>**kwargs</code>: Argumentos adicionales compatibles con <code>Write</code> (como <code>run_time</code>, <code>sound</code>, <code>rate_func</code>, etc.).</li>
-    </ul>
-  </div>
 
   <a class="back" href="../Entradas.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">
-  <a href="DrawGlow.html" class="nav-arrow" title="Anterior">&lt;</a>
-  <a href="EnterFadeIn.html" class="nav-arrow" title="Siguiente">&gt;</a>
+  <a href="KeEstaPasandoFadeIn.html" class="nav-arrow" title="Anterior">&lt;</a>
+  <a href="OpenAreas.html" class="nav-arrow" title="Siguiente">&gt;</a>
   </div>
   <script>
     // Cargar modo guardado

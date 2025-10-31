@@ -130,3 +130,35 @@ a.enlace:hover {
 .back-up:hover {
   opacity: 1;
 }
+.webm {
+  position: fixed;              /* stays centered even on scroll */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* perfectly center */
+  height: 100vh;                /* fill viewport height */
+  width: 100vw;                 /* full viewport width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.webm video {
+  height: 100vh;                /* scale video to screen height */
+  width: auto;                  /* maintain aspect ratio */
+  object-fit: cover;            /* crop edges if needed */
+  display: block;
+}
+
+.overlay-title {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  z-index: 1; /* above video */
+  color: white; /* contrast */
+  font-size: 6vw; /* scales with screen */
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+  text-align: center;
+}
