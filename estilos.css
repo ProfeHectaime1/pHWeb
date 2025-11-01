@@ -131,3 +131,102 @@ body.light {
 .back-up:hover {
   opacity: 1;
 }
+
+
+
+
+
+/* === Tinte por categoría en hover === */
+:root{
+  /* RGB para componer transparencias */
+  --ph-verde: 34, 197, 94;   /* Entradas  #22c55e */
+  --ph-rojo: 239, 68, 68;    /* Salidas   #ef4444 */
+  --ph-amar: 250, 204, 21;   /* Transform #facc15 */
+}
+
+/* Arreglo menor en la sombra base (faltaban px) y preparación */
+.card{
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: transform .2s, opacity .2s, box-shadow .2s, outline-color .2s, background .2s;
+}
+
+/* Hover común (tu efecto + ligera escala) */
+.card:hover{
+  transform: translateY(-5px) scale(1.02);
+  opacity: 1;
+}
+
+/* ------ Entradas ------ */
+.card.entradas:hover{
+  background:
+    linear-gradient(
+      to bottom right,
+      rgba(var(--ph-verde), .12),
+      rgba(var(--ph-verde), .06)
+    ),
+    var(--card-bg);
+  box-shadow: 0 8px 24px rgba(var(--ph-verde), .35);
+  outline: 1px solid rgba(var(--ph-verde), .35);
+  outline-offset: -1px;
+}
+
+/* ------ Salidas ------ */
+.card.salidas:hover{
+  background:
+    linear-gradient(
+      to bottom right,
+      rgba(var(--ph-rojo), .12),
+      rgba(var(--ph-rojo), .06)
+    ),
+    var(--card-bg);
+  box-shadow: 0 8px 24px rgba(var(--ph-rojo), .35);
+  outline: 1px solid rgba(var(--ph-rojo), .35);
+  outline-offset: -1px;
+}
+
+/* ------ Transformaciones ------ */
+.card.transformaciones:hover{
+  background:
+    linear-gradient(
+      to bottom right,
+      rgba(var(--ph-amar), .12),
+      rgba(var(--ph-amar), .06)
+    ),
+    var(--card-bg);
+  box-shadow: 0 8px 24px rgba(var(--ph-amar), .35);
+  outline: 1px solid rgba(var(--ph-amar), .35);
+  outline-offset: -1px;
+}
+
+/* Igualar percepción en modo claro (un pelín más de alpha) */
+body.light .card.entradas:hover{
+  background:
+    linear-gradient(to bottom right,
+      rgba(var(--ph-verde), .16),
+      rgba(var(--ph-verde), .08)
+    ), var(--card-bg);
+}
+body.light .card.salidas:hover{
+  background:
+    linear-gradient(to bottom right,
+      rgba(var(--ph-rojo), .16),
+      rgba(var(--ph-rojo), .08)
+    ), var(--card-bg);
+}
+body.light .card.transformaciones:hover{
+  background:
+    linear-gradient(to bottom right,
+      rgba(var(--ph-amar), .16),
+      rgba(var(--ph-amar), .08)
+    ), var(--card-bg);
+}
+
+/* Accesibilidad con teclado */
+.card:focus-visible{
+  outline: 2px solid #fff7; outline-offset: 2px;
+}
+.card.entradas:focus-visible{ outline-color: rgba(var(--ph-verde), .7); }
+.card.salidas:focus-visible{ outline-color: rgba(var(--ph-rojo), .7); }
+.card.transformaciones:focus-visible{ outline-color: rgba(var(--ph-amar), .7); }

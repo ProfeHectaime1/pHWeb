@@ -2,9 +2,11 @@ body {
   background-color: #000;
   color: #fff;
   font-family: sans-serif;
-  max-width: 900px;
-  margin: auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  width: 100%;
+  overflow-x: hidden;
 }
 body.entrada .section h2 {
   font-size: 2.5rem;
@@ -46,12 +48,12 @@ ul {
 }
 
 a.back {
+  position: static !important;          /* por si en otro CSS estaba absolute */
   display: block;
+  width: min(92vw, 1600px);
+  margin: .6rem auto 1.2rem;            /* debajo del vídeo */
   text-align: center;
-  margin-top: 3rem;
-  font-size: 0.95rem;
-  color: var(--back-link-color);
-  text-decoration: none;
+  z-index: 3;
 }
 a.back:hover {
   text-decoration: underline;
@@ -131,34 +133,54 @@ a.enlace:hover {
   opacity: 1;
 }
 .webm {
-  position: fixed;              /* stays centered even on scroll */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* perfectly center */
-  height: 100vh;                /* fill viewport height */
-  width: 100vw;                 /* full viewport width */
+  position: relative;
+  height: 100vh;
+  width: 100%;           /* evita usar 100vw, que causa scroll */
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
 
 .webm video {
-  height: 100vh;                /* scale video to screen height */
-  width: auto;                  /* maintain aspect ratio */
-  object-fit: cover;            /* crop edges if needed */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+  z-index: 0;
 }
 
+/* Título centrado en la parte superior */
 .overlay-title {
-  position: relative;
-  top: 50%;
+  position: absolute;
+  top: -10%;
   left: 50%;
-  transform: translate(-50%, -150%);
-  z-index: 1; /* above video */
-  color: white; /* contrast */
-  font-size: 6vw; /* scales with screen */
+  transform: translateX(-50%);
+  z-index: 2;
+  color: #fff;
+  font-size: 5vw;
+  font-weight: 800;
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-  font-weight: bold;
+  white-space: nowrap;
   text-align: center;
+}
+
+/* Enlace 'Volver a la biblioteca' */
+a.back {
+  position: static !important;
+  display: block;
+  width: 100%;
+  margin: 0.8rem 0 1.4rem;
+  text-align: center;
+  color: #bdbdbd;           /* gris elegante */
+  text-decoration: none;
+  font-weight: 500;
+  z-index: 3;
+}
+
+a.back:hover {
+  text-decoration: underline;
+  color: #e0e0e0;
 }
