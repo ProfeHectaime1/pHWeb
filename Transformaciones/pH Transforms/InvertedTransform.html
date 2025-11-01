@@ -62,33 +62,10 @@
 
   <h1>InvertedTransform</h1>
 
-  <div class="gif">
-    <img src="gifs/720/InvertedTransform.gif" alt="InvertedTransform">
+  <div class="webm">
+    <video src="webm/InvertedTransform.webm" autoplay muted loop playsinline></video>
   </div>
-
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Desaparece con un <a href="../../Salidas/pH Salidas/FadOut.html" class="enlace"><code>FadOut</code></a> personalizado y reaparece con un <a href="../../Entradas/pH Entradas/FadIn.html" class="enlace"><code>FadIn</code></a> personalizado, submobject a submobject, con <code>lag</code> entre ellos para un efecto progresivo. El tipo de entrada depende del argumento <code>option</code>.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>vgrp1</code> (<code>Mobject</code>): Objeto o grupo de objetos que se eliminarán de la escena mediante una animación personalizada (<a href="../../Salidas/pH Salidas/InvertedFadeOut.html" class="enlace"><code>InvertedFadeOut</code></a>).</li>
-      <li><code>vgrp2</code> (<code>Mobject</code>): Objeto o grupo de objetos que aparecerán mediante una animación personalizada de entrada.</li>
-      <li><code>option</code> (<code>int</code>, por defecto <code>0</code>): Determina la variante de entrada:</li>
-    </ul>
-    <ul style="margin-left: 2rem; margin-top: 0.5rem; font-size: 0.95rem;">
-      <li><code>0:</code> Usa <a href="../../Entradas/pH Entradas/InvertedFadeIn.html" class="enlace"><code>InvertedFadeIn</code></a>. Entrada desde arriba o abajo.</li>
-      <li><code>1:</code> Usa <a href="../../Entradas/pH Entradas/InvertedFadeIn2.html" class="enlace"><code>InvertedFadeIn2</code></a>. Entrada desde arriba, abajo, izquierda y derecha.</li>
-      <li><code>2:</code> Usa <a href="../../Entradas/pH Entradas/InvertedFadeIn3.html" class="enlace"><code>InvertedFadeIn3</code></a>. Entrada desde cualquier ángulo.</li>
-    </ul>
-    <ul>
-      <li><code>**kwargs</code>: argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>sound</code>, <code>seed</code>, <code>divide</code>, <code>option</code>, <code>nos</code>) y también de los <code>InvertedFadeIn/Out</code> (<code>contrary</code>, <code>shift_scale</code>, <code>fade_scale</code>).</li>
-    </ul>
-  </div>
+  <h1 class="overlay-title">InvertedTransform</h1>
 
   <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">

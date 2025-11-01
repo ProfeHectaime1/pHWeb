@@ -62,33 +62,10 @@
 
   <h1>GeometricTransform</h1>
 
-  <div class="gif">
-    <img src="gifs/720/GeometricTransform.gif" alt="GeometricTransform">
+  <div class="webm">
+    <video src="webm/GeometricTransform.webm" autoplay muted loop playsinline></video>
   </div>
-
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Transforma primero el objeto inicial en una figura geométrica proporcionada como entrada (que puede ser incluso texto) y, tras ello, lo transforma al <code>Mobject</code> final. Esta figura intermedia puede ser un <code>Circle</code>, <code>Square</code>, <code>Triangle</code>, <code>Ellipse</code> o cualquier otro objeto.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>vgrp1</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> a transformar.</li>
-      <li><code>vgrp2</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> en que se transforma.</li>
-      <li><code>cam</code> (<code>Camera</code>): Referencia de la cámara para posicionar las rotaciones.</li>
-      <li><code>geometry</code> (<code>VMobject</code>): Objeto intermedio al que se transforma <code>vgrp1</code> antes de llegar a <code>vgrp2</code>. Puede ser una figura geométrica o incluso texto.</li>
-      <li><code>preset1</code> (<code>int</code> o <code>str</code>): Método de transformación utilizado para convertir <code>vgrp1</code> en la geometría seleccionada mediante <code>get_preset</code>.</li>
-      <li><code>preset2</code> (<code>int</code> o <code>str</code>): Método de transformación utilizado para convertir la geometría en <code>vgrp2</code>, también mediante <code>get_preset</code>.</li>
-      <li><code>scale_factor</code> (<code>int</code>): Factor de escala de la geometría intermedia.</li>
-      <li><code>color</code> (<code>ManimColor</code>): Color de la figura geométrica.</li>
-      <li><code>margin</code> (<code>float</code>): Margen con respecto al borde de la cámara para que la geometría no se salga de la vista.</li>
-      <li><code>opacity</code> (<code>float</code>, de 0 a 1): Opacidad de la figura geométrica. Es esencial para que se vean correctamente los textos o rellenos.</li>
-      <li><code>**kwargs</code>: argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.0</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>soff</code> (por defecto <code>0.93</code>), <code>divide</code>, <code>option</code>, <code>nos</code>).</li>
-    </ul>
-  </div>
+  <h1 class="overlay-title">GeometricTransform</h1>
 
   <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">

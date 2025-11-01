@@ -62,47 +62,10 @@
   
   <h1>OneByOneTransform</h1>
 
-  <div class="gif">
-    <img src="gifs/720/OneByOneTransform.gif" alt="OneByOneTransform">
+  <div class="webm">
+    <video src="webm/OneByOneTransform.webm" autoplay muted loop playsinline></video>
   </div>
-
-
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>Transforma cada uno como <a href="SortedTransform.html" class="enlace"><code>SortedTransform</code></a>, pero añadiendo giros y desplazamientos que pueden ser aleatorios. No hace copias: si sobran o faltan <code>submobjects</code>, se usa <code>FadeIn</code> o <code>FadeOut</code>. Muy importante su argumento <code>option</code>, puesto que determina una combinación de características:</p>
-    <div style="padding-left: 2rem;">
-      – <code>inverted_arc</code> (<code>bool</code>): Si es <code>True</code>, alterna los arcos de signo.<br>
-      – <code>rand</code> (<code>bool</code>): Activa la opción aleatoria para cada valor de las transformaciones (pero no de los <code>FadeIn</code> y <code>FadeOut</code>).<br>
-      – <code>inverted_shift</code> (<code>bool</code>): Si es <code>True</code>, alterna la dirección de desplazamiento en los <code>FadeIn</code> y <code>FadeOut</code>.<br>
-      – <code>random_shift</code> (<code>bool</code>): Si es <code>True</code>, la dirección de los desplazamientos será aleatoria.<br>
-      – <code>random_scale</code> (<code>bool</code>): Si es <code>True</code>, se escalarán los <code>mobjects</code> dentro del intervalo definido en <code>scale_range</code>.
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>vgrp1</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> a transformar.</li>
-      <li><code>vgrp2</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> en que se transforma.</li>
-      <li><code>option</code> (<code>int</code>, por defecto <code>1</code>): Número que representa qué características va a tener la transformación:</li>
-      <li><code>*Las características son: [inverted_arc, rand, inverted_shift, random_shift, random_scale]</code></li>
-    <ul style="margin-left: 2rem; margin-top: 0.5rem; font-size: 0.95rem;">
-      <li><code>0:</code> [False, False, False, False, False] → Por defecto: Ninguna característica.</li>
-      <li><code>1:</code> [True, True, True, True, True] → Todas las características activadas.</li>
-      <li><code>2:</code> [True, False, True, False, False] → Solo inversión activada.</li>
-      <li><code>3:</code> [False, True, False, True, True] → Solo aleatorización activada.</li>
-      <li><code>4:</code> [True, True, False, False, False] → Solo arco activado.</li>
-      <li><code>5:</code> [True, True, True, True, False] → Arco con desplazamiento activado.</li>
-      <li><code>6:</code> [True, True, False, False, True] → Arco con escalado activado.</li>
-      <li><code>7:</code> [False, False, True, True, False] → Solo desplazamiento activado.</li>
-    </ul>
-      <li><code>arc</code> (<code>float</code>, por defecto <code>0.0</code>): El ángulo que van a describir los <code>mobjects</code> al transformarse.</li>
-      <li><code>shift</code> (<code>np.array</code>, opcional): Dirección fija de desplazamiento para los efectos de aparición y desaparición.</li>
-      <li><code>scale</code> (<code>float</code>, por defecto <code>1.0</code>): Factor de escala por defecto para las transformaciones.</li>
-      <li><code>scale_range</code> (<code>list</code>, por defecto <code>[0.01, 5]</code>): Define el rango de valores permitidos para el escalado aleatorio.</li>
-      <li><code>**kwargs</code>: argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>divide</code>, <code>option</code>, <code>nos</code>).</li>
-    </ul>
-  </div>
+  <h1 class="overlay-title">OneByOneTransform</h1>
 
   <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">

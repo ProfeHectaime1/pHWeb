@@ -62,31 +62,10 @@
 
   <h1>GlowTransform</h1>
 
-  <div class="gif">
-    <img src="gifs/720/GlowTransform.gif" alt="GlowTransform">
+  <div class="webm">
+    <video src="webm/GlowTransform.webm" autoplay muted loop playsinline></video>
   </div>
-
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Transforma dos <code>Mobjects</code> que tienen un efecto de destello (<i>glow</i>). Para ello, separa ambos objetos de sus destellos y transforma por un lado los <code>Mobjects</code> (siguiendo el <code>preset</code> indicado) y por otro los <i>glows</i>, los cuales se transforman según la <code>option</code> definida.
-    </p>
-    <p>
-      No funciona con un conjunto de <code>Mobjects</code> individuales con <i>glow</i> dentro de un <code>VGroup</code>, pero sí si el <code>VGroup</code> completo tiene aplicado un <i>glow</i> como un todo.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>mobject1</code> (<code>Mobject</code>): <code>Mobject</code> a transformar.</li>
-      <li><code>mobject2</code> (<code>Mobject</code>): <code>Mobject</code> en que se transforma.</li>
-      <li><code>preset</code> (<code>int</code> o <code>str</code>, por defecto <code>1</code>): Define el tipo de transformación entre los <code>Mobjects</code> mediante <code>get_preset</code>.</li>
-      <li><code>option</code> (<code>int</code>, por defecto <code>0</code>): Determina el comportamiento visual de los <i>glows</i> durante la transformación.</li>
-      <li><code>seed</code> (<code>int</code>, opcional): Valor de semilla para controlar la aleatoriedad (si la hubiera).</li>
-      <li><code>**kwargs</code>: argumentos adicionales para la animación de los <code>Mobjects</code> (como los definidos en <code>default_args</code>).</li>
-    </ul>
-  </div>
+  <h1 class="overlay-title">GlowTransform</h1>
 
   <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">

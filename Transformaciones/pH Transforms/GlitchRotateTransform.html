@@ -62,29 +62,10 @@
 
   <h1>GlitchRotateTransform</h1>
 
-  <div class="gif">
-    <img src="gifs/720/GlitchRotateTransform.gif" alt="GlitchRotateTransform">
+  <div class="webm">
+    <video src="webm/GlitchRotateTransform.webm" autoplay muted loop playsinline></video>
   </div>
-
-  <div class="section">
-    <h2>¿Qué hace?</h2>
-    <p>
-      Transforma cada <code>submobject</code> con rotaciones y desplazamientos en otro <code>submobject</code> del <code>Mobject</code> final. A la vez, se crean réplicas del primer objeto que también se transforman, generando una sensación visual de error o animación corrupta. 
-    </p>
-    <p>
-      Curiosamente, esta transformación nació como un fallo de <a href="RotateTransform.html" class="enlace"><code>RotateTransform</code></a>, cuando su implementación no era estable. El resultado, sin embargo, era estéticamente interesante y dio origen a esta versión.
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>Parámetros</h2>
-    <ul>
-      <li><code>vgrp1</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> a transformar.</li>
-      <li><code>vgrp2</code> (<code>Mobject</code>): <code>Mobject</code>/<code>VGroup</code> en que se transforma.</li>
-      <li><code>laps</code> (<code>int</code>, por defecto <code>2</code>): Número de veces que se repite la transformación para generar el efecto glitcheado.</li>
-      <li><code>**kwargs</code>: argumentos adicionales de <code>default_args</code> (<code>debug</code>, <code>lag</code> (por defecto <code>0.03</code>), <code>cam</code>, <code>sound</code>, <code>seed</code>, <code>soff</code>, <code>divide</code>, <code>rand</code>, <code>option</code>, <code>run_time</code>, <code>nos</code>).</li>
-    </ul>
-  </div>
+  <h1 class="overlay-title">GlitchRotateTransform</h1>
 
   <a class="back" href="../Transformaciones.html">← Volver a la biblioteca</a>
   <div class="nav-arrows">
