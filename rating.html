@@ -1,44 +1,37 @@
-// This code takes all rows from Google Sheets and builds the HTML gallery
-const videos = items.map(i => i.json); 
 
-let galleryHTML = '';
-videos.forEach(v => {
-    galleryHTML += `
-    <div class="thumb-card">
-        <img src="${v.ThumbnailURL}" alt="${v.Title}">
-        <h4>${v.Title}</h4>
-        <div class="stars">
-            <button onclick="sendRating('${v.ID}', 1)">⭐</button>
-            <button onclick="sendRating('${v.ID}', 2)">⭐⭐</button>
-            <button onclick="sendRating('${v.ID}', 3)">⭐⭐⭐</button>
-        </div>
-    </div>`;
-});
-
-// The full HTML template
-const fullPage = `
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>Galería de Evaluación</title>
     <style>
-        body { background: #121212; color: white; font-family: sans-serif; text-align:center; }
-        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .thumb-card { background: #1e1e1e; padding: 15px; border-radius: 10px; width: 300px; }
-        .thumb-card img { width: 100%; border-radius: 5px; }
-        button { cursor: pointer; margin: 5px; }
+        body { background: #121212; color: white; font-family: sans-serif; text-align:center; padding: 40px; }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px; }
+        .thumb-card { 
+            background: #1e1e1e; 
+            padding: 15px; 
+            border-radius: 15px; 
+            width: 320px; 
+            cursor: pointer; 
+            transition: transform 0.2s, border-color 0.2s;
+            border: 2px solid transparent;
+        }
+        .thumb-card:hover { 
+            transform: scale(1.05); 
+            border-color: #2ecc71; 
+        }
+        .thumb-card img { width: 100%; border-radius: 10px; }
+        h1 { font-size: 2.5rem; color: #2ecc71; }
     </style>
 </head>
 <body>
-    <h1>Evalúa las Miniaturas</h1>
-    <div class="gallery">${galleryHTML}</div>
-    <script>
-        function sendRating(id, score) {
-            fetch('YOUR_N8N_WEBHOOK_URL', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ videoId: id, rating: score })
-            }).then(() => alert('¡Voto registrado!'));
-        }
-    </script>
+    <h1>Elige un Video para Evaluar</h1>
+    <p>Selecciona una carátula para ver todas sus variaciones y conceptos.</p>
+    <div class="gallery">
+    <div class="thumb-card" onclick="window.location.href='ratings/rating-concepto-integral.html'">
+        <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPBx0E_shKDkNwNl_MxGkIV5g5j8GywH-m0Rxc4V1od08sHmWuFSuiIHo4Apz2NQrF3OmXEsJYgDe2hqrVUMm8M_J7weVhT8QmH0ZicILZz7hs=s220" alt="concepto integral">
+        <h4>CONCEPTO INTEGRAL</h4>
+        <p>Haz clic para evaluar conceptos</p>
+    </div></div>
 </body>
 </html>
