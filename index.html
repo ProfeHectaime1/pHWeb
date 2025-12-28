@@ -221,7 +221,7 @@
     async function verificarAcceso(correo) {
       const doc = await db.collection("autorizados").doc(correo).get();
       if (doc.exists && doc.data().autorizado === true) {
-        window.location.href = "biblioteca-visual.html";
+        window.location.href = "home.html";
       } else {
         auth.signOut();
         document.getElementById("login-error").textContent = "Acceso no autorizado. Pruébalo más tarde o contacta conmigo a través de profe.hectaime@gmail.com. Si estás iniciando con Google, primero regístrate.";
