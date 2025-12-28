@@ -1,0 +1,44 @@
+// This code takes all rows from Google Sheets and builds the HTML gallery
+const videos = items.map(i => i.json); 
+
+let galleryHTML = '';
+videos.forEach(v => {
+    galleryHTML += `
+    <div class="thumb-card">
+        <img src="${v.ThumbnailURL}" alt="${v.Title}">
+        <h4>${v.Title}</h4>
+        <div class="stars">
+            <button onclick="sendRating('${v.ID}', 1)">⭐</button>
+            <button onclick="sendRating('${v.ID}', 2)">⭐⭐</button>
+            <button onclick="sendRating('${v.ID}', 3)">⭐⭐⭐</button>
+        </div>
+    </div>`;
+});
+
+// The full HTML template
+const fullPage = `
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; text-align:center; }
+        .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .thumb-card { background: #1e1e1e; padding: 15px; border-radius: 10px; width: 300px; }
+        .thumb-card img { width: 100%; border-radius: 5px; }
+        button { cursor: pointer; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Evalúa las Miniaturas</h1>
+    <div class="gallery">${galleryHTML}</div>
+    <script>
+        function sendRating(id, score) {
+            fetch('YOUR_N8N_WEBHOOK_URL', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ videoId: id, rating: score })
+            }).then(() => alert('¡Voto registrado!'));
+        }
+    </script>
+</body>
+</html>
