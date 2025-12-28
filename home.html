@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Biblioteca Visual</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        .menu-container { display: flex; gap: 20px; justify-content: center; margin-top: 50px; }
+        .card { width: 250px; padding: 20px; border-radius: 15px; background: white; color: black; text-align: center; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .card:hover { transform: translateY(-5px); transition: 0.3s; }
+    </style>
+</head>
+<body>
+    <h1>¿Qué quieres hacer hoy?</h1>
+    <div class="menu-container">
+        <div class="card" onclick="window.location.href='rate.html'">
+            <h3>⭐ Evaluar Miniaturas</h3>
+            <p>Ayúdanos a elegir la mejor imagen para los vídeos de mates.</p>
+        </div>
+        <div class="card" onclick="window.location.href='biblioteca-visual.html'">
+            <h3>📺 Ver Biblioteca</h3>
+            <p>Accede a todos los vídeos disponibles.</p>
+        </div>
+    </div>
+</body>
+</html>
