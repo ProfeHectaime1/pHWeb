@@ -6,46 +6,45 @@
     <title>Miniaturas Concepto Integral</title>
     <style>
         :root { --accent: #2ecc71; --gold: #f1c40f; --bg: #0a0a0a; --thumb-size: 250px; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; overflow-x: hidden; }
         
-        /* Home Button */
+        /* 1. Minimalist Home Icon */
         .home-btn {
-            position: fixed; top: 20px; left: 20px; background: rgba(255,255,255,0.1);
-            color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;
-            font-size: 14px; backdrop-filter: blur(5px); z-index: 2000; border: 1px solid #333;
+            position: fixed; top: 30px; left: 30px; color: white; font-size: 24px;
+            text-decoration: none; z-index: 2000; opacity: 0.6; transition: 0.3s;
         }
-        .home-btn:hover { background: var(--accent); }
+        .home-btn:hover { opacity: 1; color: var(--accent); }
 
-        /* Bigger Vertical Slider - Moved more to the right */
+        /* 2. Enhanced Vertical Slider (Twice as wide) */
         .size-control {
-            position: fixed; left: 80px; top: 50%; transform: translateY(-50%) rotate(-90deg);
-            transform-origin: left center; width: 350px; z-index: 1000; display: flex; align-items: center;
+            position: fixed; left: 100px; top: 50%; transform: translateY(-50%) rotate(-90deg);
+            transform-origin: left center; width: 400px; z-index: 1000; display: flex; align-items: center;
         }
         .size-control input { 
-            cursor: pointer; accent-color: var(--accent); width: 100%; height: 8px; border-radius: 10px;
+            cursor: pointer; accent-color: var(--accent); width: 100%; height: 16px; border-radius: 10px;
         }
 
-        .main-container { flex: 1; padding: 60px 100px 60px 180px; text-align: center; }
+        .main-container { flex: 1; padding: 60px 100px 60px 220px; text-align: center; }
         .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; }
         
         .card { 
             position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); background: #151515; border: 3px solid transparent;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); background: #151515; box-sizing: border-box;
         }
-        .card img { width: 100%; border-radius: 9px; display: block; }
+        .card img { width: 100%; border-radius: 9px; display: block; pointer-events: none; }
         
-        /* Zoom Symbol */
+        /* Expand Icon - Hover logic */
         .zoom-btn {
             position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.8); 
             color: white; border-radius: 50%; width: 35px; height: 35px; 
             display: flex; align-items: center; justify-content: center; 
-            opacity: 0; transition: 0.3s; font-size: 20px; font-weight: bold;
+            opacity: 0; transition: 0.3s; z-index: 50;
         }
         .card:hover .zoom-btn { opacity: 1; }
 
-        /* Background Blur logic */
-        .group-active .card:not(.selected) { opacity: 0.2; filter: blur(4px); scale: 0.9; }
-        .card.selected { border-color: var(--accent); scale: 1.05; opacity: 1 !important; filter: none !important; }
+        /* Dimming Effect */
+        .group-active .card:not(.selected) { opacity: 0.2; filter: blur(4px); transform: scale(0.9); }
+        .card.selected { outline: 4px solid var(--accent); outline-offset: 4px; border-radius: 9px; transform: scale(1.05); opacity: 1 !important; filter: none !important; }
 
         .global-section { margin-top: 100px; padding-top: 60px; border-top: 1px solid #222; }
         .selection-tray { 
@@ -53,31 +52,34 @@
             background: rgba(255,255,255,0.02); border-radius: 30px; border: 2px dashed #444;
             display: flex; justify-content: center; gap: 30px;
         }
-        .tray-card { border-color: var(--gold) !important; }
+        /* Tray Selection Stroke - Following Border exactly */
+        .tray-card { outline: 4px solid var(--gold) !important; outline-offset: 4px; border-radius: 9px; }
 
-        /* Full Background Blur Lightbox */
+        /* Lightbox with Full Web Blur */
         #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.7); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: none; justify-content: center; align-items: center; z-index: 3000;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4); 
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: none; justify-content: center; align-items: center; z-index: 5000;
         }
-        #lightbox.active { display: flex; animation: fadeIn 0.3s forwards; }
-        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 100px rgba(0,0,0,0.8); }
+        #lightbox.active { display: flex; }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; box-shadow: 0 0 100px rgba(0,0,0,0.8); }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        
-        .submit-btn { 
-            background: var(--accent); color: white; padding: 25px 80px; border-radius: 60px; 
-            border: none; cursor: pointer; font-weight: bold; font-size: 1.3rem; margin-top: 80px;
+        /* Conditional Submit Button */
+        #submit-btn { 
+            display: none; background: var(--accent); color: white; padding: 25px 80px; 
+            border-radius: 60px; border: none; cursor: pointer; font-weight: bold; 
+            font-size: 1.3rem; margin: 80px auto; 
         }
     </style>
 </head>
 <body>
 
-    <a href="../home.html" class="home-btn">🏠 Inicio</a>
+    <a href="../home.html" class="home-btn" title="Ir al inicio">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </a>
 
     <div class="size-control">
-        <input type="range" min="150" max="600" value="250" oninput="document.documentElement.style.setProperty('--thumb-size', this.value + 'px')">
+        <input type="range" min="150" max="700" value="250" oninput="document.documentElement.style.setProperty('--thumb-size', this.value + 'px')">
     </div>
 
     <div class="main-container">
@@ -88,69 +90,99 @@
         <h2 style="margin-top:80px; opacity:0.6; font-weight:300;">Variación 2</h2>
         <div class="version-grid" id="grid-2">
             <div class="card" onclick="toggleConcept('2', '1SLwxViSkpCsKtgMiQ9lcBfctkYlrPq7D', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '1HwXJbge7-pE3NqkTEFeqPIQNbD4ETB2h', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '1pmlnxgLdfyBUhvYTBKHS7mw2v4VaF7NA', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '1jP-cL7JKOUykrYSpXI5QWnQxvjJiGjdg', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '1S4V1etIZiLqOqSb6wxD39iMdA4nTPTdW', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '1QIKUe6K5ZJ3Ygcom0_WSighrv09P38lf', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220">
             </div>
             <div class="card" onclick="toggleConcept('2', '15JXrUhjGVK6dZC_LwcPp8TP7IhnApqN7', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220">
             </div></div></div>
     <div class="concept-block">
         <h2 style="margin-top:80px; opacity:0.6; font-weight:300;">Variación 3</h2>
         <div class="version-grid" id="grid-3">
             <div class="card" onclick="toggleConcept('3', '1g6iDby9Jn3T9yUncSW14s2Y0_WYjEcYU', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220">
             </div>
             <div class="card" onclick="toggleConcept('3', '1RrtWBv7OVssgQQ4IUdSUmwNGPB3aQq8u', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220">
             </div>
             <div class="card" onclick="toggleConcept('3', '1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220">
             </div>
             <div class="card" onclick="toggleConcept('3', '1CGKzQk2a_dHQa30oRSwQ-lZwj0loRgUP', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220">
             </div>
             <div class="card" onclick="toggleConcept('3', '1Wcbwr9IkmeLnkxOM-Wt45m4t6XdJRfnS', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220">
             </div></div></div>
     <div class="concept-block">
         <h2 style="margin-top:80px; opacity:0.6; font-weight:300;">Variación 4</h2>
         <div class="version-grid" id="grid-4">
             <div class="card" onclick="toggleConcept('4', '1k4vt--M0x4zXKuLTU8BDDqkuyiQLqqRa', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220">
             </div>
             <div class="card" onclick="toggleConcept('4', '1qHhb0oWjsRjXvohyx-FYCZydq3Q7ya7n', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220">
             </div>
             <div class="card" onclick="toggleConcept('4', '1po5Ac4B1cwmpZrbfwGIYeWlEcu3xkaR9', this)">
-                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=w1200')">＋</div>
+                <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s0')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
                 <img src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220">
             </div></div></div>
         <div class="global-section">
@@ -159,7 +191,7 @@
             <div class="selection-tray" id="tray"></div>
         </div>
 
-        <button class="submit-btn" onclick="sendData()">Confirmar Evaluación</button>
+        <button id="submit-btn" onclick="sendData()">Confirmar Evaluación</button>
     </div>
 
     <div id="lightbox" onclick="this.classList.remove('active')">
@@ -167,13 +199,20 @@
     </div>
 
     <script>
-        const poolData = [{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=w1200","imageID":"1g6iDby9Jn3T9yUncSW14s2Y0_WYjEcYU","conceptID":3},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=w1200","imageID":"1RrtWBv7OVssgQQ4IUdSUmwNGPB3aQq8u","conceptID":3},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=w1200","imageID":"1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0","conceptID":3},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=w1200","imageID":"1k4vt--M0x4zXKuLTU8BDDqkuyiQLqqRa","conceptID":4},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=w1200","imageID":"1qHhb0oWjsRjXvohyx-FYCZydq3Q7ya7n","conceptID":4},{"versionID":4,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=w1200","imageID":"1CGKzQk2a_dHQa30oRSwQ-lZwj0loRgUP","conceptID":3},{"versionID":3,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=w1200","imageID":"1Wcbwr9IkmeLnkxOM-Wt45m4t6XdJRfnS","conceptID":3},{"versionID":6,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=w1200","imageID":"1SLwxViSkpCsKtgMiQ9lcBfctkYlrPq7D","conceptID":2},{"versionID":5,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=w1200","imageID":"1HwXJbge7-pE3NqkTEFeqPIQNbD4ETB2h","conceptID":2},{"versionID":4,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=w1200","imageID":"1pmlnxgLdfyBUhvYTBKHS7mw2v4VaF7NA","conceptID":2},{"versionID":3,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=w1200","imageID":"1jP-cL7JKOUykrYSpXI5QWnQxvjJiGjdg","conceptID":2},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=w1200","imageID":"1S4V1etIZiLqOqSb6wxD39iMdA4nTPTdW","conceptID":2},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=w1200","imageID":"1QIKUe6K5ZJ3Ygcom0_WSighrv09P38lf","conceptID":2},{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=w1200","imageID":"15JXrUhjGVK6dZC_LwcPp8TP7IhnApqN7","conceptID":2},{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=w1200","imageID":"1po5Ac4B1cwmpZrbfwGIYeWlEcu3xkaR9","conceptID":4}];
+        const poolData = [{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s0","imageID":"1g6iDby9Jn3T9yUncSW14s2Y0_WYjEcYU","conceptID":3},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s0","imageID":"1RrtWBv7OVssgQQ4IUdSUmwNGPB3aQq8u","conceptID":3},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s0","imageID":"1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0","conceptID":3},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s0","imageID":"1k4vt--M0x4zXKuLTU8BDDqkuyiQLqqRa","conceptID":4},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s0","imageID":"1qHhb0oWjsRjXvohyx-FYCZydq3Q7ya7n","conceptID":4},{"versionID":4,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s0","imageID":"1CGKzQk2a_dHQa30oRSwQ-lZwj0loRgUP","conceptID":3},{"versionID":3,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s0","imageID":"1Wcbwr9IkmeLnkxOM-Wt45m4t6XdJRfnS","conceptID":3},{"versionID":6,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s0","imageID":"1SLwxViSkpCsKtgMiQ9lcBfctkYlrPq7D","conceptID":2},{"versionID":5,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s0","imageID":"1HwXJbge7-pE3NqkTEFeqPIQNbD4ETB2h","conceptID":2},{"versionID":4,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s0","imageID":"1pmlnxgLdfyBUhvYTBKHS7mw2v4VaF7NA","conceptID":2},{"versionID":3,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s0","imageID":"1jP-cL7JKOUykrYSpXI5QWnQxvjJiGjdg","conceptID":2},{"versionID":2,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s0","imageID":"1S4V1etIZiLqOqSb6wxD39iMdA4nTPTdW","conceptID":2},{"versionID":1,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s0","imageID":"1QIKUe6K5ZJ3Ygcom0_WSighrv09P38lf","conceptID":2},{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s0","imageID":"15JXrUhjGVK6dZC_LwcPp8TP7IhnApqN7","conceptID":2},{"versionID":0,"url":"https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220","zoomUrl":"https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s0","imageID":"1po5Ac4B1cwmpZrbfwGIYeWlEcu3xkaR9","conceptID":4}];
         const ratings = { videoID: "concepto-integral", winners: {}, top3: [] };
+
+        function updateSubmitVisibility() {
+            const hasSelection = Object.keys(ratings.winners).length > 0 || ratings.top3.length > 0;
+            document.getElementById('submit-btn').style.display = hasSelection ? 'block' : 'none';
+        }
 
         function openZoom(e, url) {
             e.stopPropagation();
-            document.getElementById('zoomImg').src = url;
-            document.getElementById('lightbox').classList.add('active');
+            const lightbox = document.getElementById('lightbox');
+            const zoomImg = document.getElementById('zoomImg');
+            zoomImg.src = url;
+            lightbox.classList.add('active');
         }
 
         function toggleConcept(cId, imgId, el) {
@@ -188,6 +227,7 @@
                 grid.classList.add('group-active');
                 ratings.winners[cId] = imgId;
             }
+            updateSubmitVisibility();
         }
 
         function renderGlobal() {
@@ -197,7 +237,9 @@
             const remaining = poolData.filter(img => !ratings.top3.includes(img.imageID));
             poolEl.innerHTML = remaining.map(v => `
                 <div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
-                    <div class="zoom-btn" onclick="openZoom(event, '${v.zoomUrl}')">＋</div>
+                    <div class="zoom-btn" onclick="openZoom(event, '${v.zoomUrl}')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    </div>
                     <img src="${v.url}">
                 </div>`).join('');
 
@@ -207,19 +249,20 @@
                     <img src="${img.url}">
                 </div>`;
             }).join('');
+            updateSubmitVisibility();
         }
 
         renderGlobal();
 
         function sendData() {
             if (Object.keys(ratings.winners).length < 3 || ratings.top3.length < 3) 
-                return alert("Completa la selección.");
+                return alert("Por favor, completa la evaluación de conceptos y el Top 3 global.");
             
             fetch('YOUR_WEBHOOK_URL', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(ratings)
-            }).then(() => { alert("Enviado"); window.location.href="../rating.html"; });
+            }).then(() => { alert("Evaluación enviada con éxito."); window.location.href="../rating.html"; });
         }
     </script>
 </body>
