@@ -12,7 +12,6 @@
         :root {
             --accent-red: #ff4757;
             --accent-green: #2ecc71;
-            /* Using the variables from your modo-claro-oscuro.css */
         }
 
         /* Smooth transition for every single element */
@@ -42,13 +41,8 @@
             overflow-x: hidden;
         }
 
-        /* Background logic from your index */
-        body:not(.light) {
-            background-image: url('fondo-index-pH.png');
-        }
-        body.light {
-            background-image: url('fondo-index-claro-pH.png');
-        }
+        body:not(.light) { background-image: url('fondo-index-pH.png'); }
+        body.light { background-image: url('fondo-index-claro-pH.png'); }
 
         .header {
             text-align: center;
@@ -71,7 +65,6 @@
             z-index: 10;
         }
 
-        /* Card Setup */
         .card {
             position: relative;
             background: var(--card-bg, rgba(0,0,0,0.8));
@@ -80,7 +73,7 @@
             text-align: center;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden; /* Clips the background video/image */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -96,14 +89,12 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
-        /* Content inside card stays on top */
         .card-content {
             position: relative;
             z-index: 5;
-            pointer-events: none; /* Mouse passes through to card */
+            pointer-events: none;
         }
 
-        /* The Random Background Overlay */
         .card-bg-overlay {
             position: absolute;
             top: 0;
@@ -114,11 +105,12 @@
             z-index: 1;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             pointer-events: none;
         }
 
         .card:hover .card-bg-overlay {
-            opacity: 0.2; /* Low opacity sneak peek */
+            opacity: 0.3; /* Adjusted for better visibility */
         }
 
         .card-bg-overlay video {
@@ -127,7 +119,6 @@
             object-fit: cover;
         }
 
-        /* Minimalist Icons */
         .icon-svg {
             width: 50px;
             height: 50px;
@@ -139,12 +130,10 @@
             stroke-linejoin: round;
         }
 
-        /* Red Accent - Biblioteca */
         .card-biblioteca:hover { border-color: var(--accent-red); }
         .card-biblioteca h3 { color: var(--accent-red); margin-bottom: 10px; }
         .card-biblioteca .icon-svg { stroke: var(--accent-red); }
 
-        /* Green Accent - Miniaturas */
         .card-miniaturas:hover { border-color: var(--accent-green); }
         .card-miniaturas h3 { color: var(--accent-green); margin-bottom: 10px; }
         .card-miniaturas .icon-svg { stroke: var(--accent-green); }
@@ -163,9 +152,6 @@
             z-index: 10;
             opacity: 0.7;
         }
-
-        .logout:hover { opacity: 1; }
-
     </style>
 </head>
 <body>
@@ -178,27 +164,17 @@
     </header>
 
     <main class="grid">
-        <div class="card card-biblioteca" id="card-lib" 
-             onmouseenter="showRandomPreview('lib')" 
-             onclick="window.location.href='biblioteca-visual.html'">
-            
+        <div class="card card-biblioteca" id="card-lib" onmouseenter="showRandomPreview('lib')" onclick="window.location.href='biblioteca-visual.html'">
             <div class="card-bg-overlay" id="overlay-lib"></div>
-            
             <div class="card-content">
-                <svg class="icon-svg" viewBox="0 0 24 24">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
+                <svg class="icon-svg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 <h3>Biblioteca Visual pH</h3>
                 <p>Animaciones y contenidos explicativos.</p>
             </div>
         </div>
 
-        <div class="card card-miniaturas" id="card-thumb" 
-             onmouseenter="showRandomPreview('thumb')" 
-             onclick="window.location.href='rating.html'">
-            
+        <div class="card card-miniaturas" id="card-thumb" onmouseenter="showRandomPreview('thumb')" onclick="window.location.href='rating.html'">
             <div class="card-bg-overlay" id="overlay-thumb"></div>
-
             <div class="card-content">
                 <svg class="icon-svg" viewBox="0 0 24 24">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -214,55 +190,47 @@
     <p class="logout" onclick="logout()">Cerrar sesión</p>
 
     <script>
-        // --- 1. MEDIA LISTS (Update with your actual file paths) ---
         const videos = ['vid1.mp4', 'vid2.mp4', 'vid3.mp4']; 
         const thumbs = [
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220",
-    "https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220"
-];
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220",
+            "https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220"
+        ];
 
         function showRandomPreview(type) {
             if (type === 'lib') {
                 const container = document.getElementById('overlay-lib');
                 const randomVid = videos[Math.floor(Math.random() * videos.length)];
-                // Using a relative path - adjust as needed
                 container.innerHTML = `<video autoplay muted loop playsinline><source src="media/videos/${randomVid}" type="video/mp4"></video>`;
             } else {
                 const container = document.getElementById('overlay-thumb');
                 const randomImg = thumbs[Math.floor(Math.random() * thumbs.length)];
-                container.style.backgroundImage = `url('media/thumbs/${randomImg}')`;
+                // FIX: Removed the "media/thumbs/" prefix since URLs are absolute
+                container.style.backgroundImage = `url('${randomImg}')`;
             }
         }
 
-        // --- 2. THEME LOGIC (Matches your original file) ---
         const modoGuardado = localStorage.getItem('modo');
-        if (modoGuardado === 'claro') {
-            document.body.classList.add('light');
-        }
+        if (modoGuardado === 'claro') { document.body.classList.add('light'); }
 
         document.getElementById("modo-toggle").addEventListener("click", () => {
             document.body.classList.toggle("light");
             localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
         });
 
-        // --- 3. SESSION LOGIC ---
-        function logout() {
-            // If using Firebase: auth.signOut().then(...)
-            window.location.href = "index.html";
-        }
+        function logout() { window.location.href = "index.html"; }
     </script>
 </body>
 </html>
