@@ -30,14 +30,20 @@
             display: flex; flex-direction: column; align-items: center;
         }
         
-        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; }
+        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; transition: opacity 0.3s ease; }
         
         .card { 
             position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            max-width: 800px; transition: width 0.1s ease-out; display: inline-block;
+            max-width: 800px; transition: all 0.3s ease; display: inline-block;
         }
         
         .card img { width: 100%; border-radius: 12px; display: block; transition: box-shadow 0.2s ease; background: #111; aspect-ratio: 16/9; object-fit: cover;}
+        
+        /* Opacity Logic */
+        .concept-block.has-winner .card:not(.selected) { opacity: 0.3; }
+        .pool-locked .card { opacity: 0.3; pointer-events: none; }
+        
+        .card.selected { opacity: 1 !important; }
         .tray-card img { box-shadow: 0 0 0 var(--border-dynamic) var(--gold); }
         .card.selected img { box-shadow: 0 0 0 var(--border-dynamic) var(--accent); }
 
@@ -87,7 +93,7 @@
     <div class="main-content">
         <h1>Miniaturas Concepto Integral</h1>
         <div id="concepts">
-    <div class="concept-block">
+    <div class="concept-block" id="block-2">
         <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 2</h2>
         <div class="version-grid" id="grid-2">
             <div class="card" onclick="toggleConcept('2', '1SLwxViSkpCsKtgMiQ9lcBfctkYlrPq7D', this)">
@@ -132,7 +138,7 @@
                 </div>
                 <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBM-9ihoFVR1vFzCd6K8VIdV7R87ceU9RDJ5eRpiYg3Bd-U9U0KQFeQl-8U8w_wXDjOaDOcD3llJODJkFnL_sRWET4wdUHu-jdnXqJskn-vRqUI" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM-9ihoFVR1vFzCd6K8VIdV7R87ceU9RDJ5eRpiYg3Bd-U9U0KQFeQl-8U8w_wXDjOaDOcD3llJODJkFnL_sRWET4wdUHu-jdnXqJskn-vRqUI=s250">
             </div></div></div>
-    <div class="concept-block">
+    <div class="concept-block" id="block-3">
         <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 3</h2>
         <div class="version-grid" id="grid-3">
             <div class="card" onclick="toggleConcept('3', '1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0', this)">
@@ -165,7 +171,7 @@
                 </div>
                 <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOwHqlwjgV3RTk3LUd5bglRydEacJdbs3lRS7rAxdjvy8kvEBa9RjP_U51Y1NfMWmLFRmfGgp8EcOOFn6d6QAjC4yHl47eRIEKtgQlnxuj9Iw" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOwHqlwjgV3RTk3LUd5bglRydEacJdbs3lRS7rAxdjvy8kvEBa9RjP_U51Y1NfMWmLFRmfGgp8EcOOFn6d6QAjC4yHl47eRIEKtgQlnxuj9Iw=s250">
             </div></div></div>
-    <div class="concept-block">
+    <div class="concept-block" id="block-4">
         <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 4</h2>
         <div class="version-grid" id="grid-4">
             <div class="card" onclick="toggleConcept('4', '1k4vt--M0x4zXKuLTU8BDDqkuyiQLqqRa', this)">
@@ -227,13 +233,17 @@
 
         function toggleConcept(cId, imgId, el) {
             const grid = document.getElementById('grid-'+cId);
+            const block = document.getElementById('block-'+cId);
+            
             if (el.classList.contains('selected')) {
                 el.classList.remove('selected');
                 delete ratings.winners[cId];
+                block.classList.remove('has-winner');
             } else {
                 grid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
                 el.classList.add('selected');
                 ratings.winners[cId] = imgId;
+                block.classList.add('has-winner');
             }
             updateUI();
         }
@@ -242,6 +252,13 @@
             const size = slider.value;
             const poolEl = document.getElementById('pool');
             const trayEl = document.getElementById('tray');
+
+            // Apply locked class if 3 are selected
+            if (ratings.top3.length >= 3) {
+                poolEl.classList.add('pool-locked');
+            } else {
+                poolEl.classList.remove('pool-locked');
+            }
 
             poolEl.innerHTML = currentPoolData.filter(img => !ratings.top3.includes(img.imageID)).map(v => `
                 <div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
@@ -268,8 +285,7 @@
         }
 
         function sendData() {
-            console.log("Resultados:", ratings);
-            alert("Selección guardada con éxito.");
+            alert("¡Selección enviada!");
         }
 
         renderGlobal();
