@@ -216,7 +216,23 @@
     <script>
         // --- 1. MEDIA LISTS (Update with your actual file paths) ---
         const videos = ['vid1.mp4', 'vid2.mp4', 'vid3.mp4']; 
-        const thumbs = ['thumb1.png', 'thumb2.png', 'thumb3.png'];
+        const thumbs = [
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220",
+    "https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220"
+];
 
         function showRandomPreview(type) {
             if (type === 'lib') {
