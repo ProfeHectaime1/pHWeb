@@ -30,18 +30,21 @@
             display: flex; flex-direction: column; align-items: center;
         }
         
-        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; transition: opacity 0.3s ease; }
+        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; transition: opacity 0.4s ease; }
         
         .card { 
             position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            max-width: 800px; transition: all 0.3s ease; display: inline-block;
+            max-width: 800px; transition: all 0.4s ease; display: inline-block;
+            opacity: 1;
         }
         
         .card img { width: 100%; border-radius: 12px; display: block; transition: box-shadow 0.2s ease; background: #111; aspect-ratio: 16/9; object-fit: cover;}
         
-        /* Opacity Logic */
+        /* Transition Logic for Variation Blocks */
         .concept-block.has-winner .card:not(.selected) { opacity: 0.3; }
-        .pool-locked .card { opacity: 0.3; pointer-events: none; }
+        
+        /* Smooth Transition for Global Pool */
+        #pool.pool-locked .card { opacity: 0.3; pointer-events: none; }
         
         .card.selected { opacity: 1 !important; }
         .tray-card img { box-shadow: 0 0 0 var(--border-dynamic) var(--gold); }
