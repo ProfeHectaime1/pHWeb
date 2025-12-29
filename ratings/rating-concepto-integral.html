@@ -10,84 +10,46 @@
             --gold: #f1c40f; 
             --bg: #0a0a0a; 
             --thumb-size: 250px;
-            /* Thin dynamic border: 1.5% of width */
             --border-dynamic: calc(var(--thumb-size) * 0.015);
         }
         
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; overflow-x: hidden; }
         
-        .home-btn { position: fixed; top: 30px; left: 30px; color: white; opacity: 0.6; transition: 0.3s; z-index: 2000; }
-        .home-btn:hover { opacity: 1; color: var(--accent); }
+        /* Debug Bar Styling */
+        #debug-box { 
+            background: #222; border: 1px solid #444; padding: 10px; border-radius: 8px; 
+            font-family: monospace; font-size: 11px; color: #f1c40f; margin: 20px 0;
+            width: 100%; max-width: 800px; word-break: break-all;
+        }
 
-        /* Centered Vertical Slider */
+        .home-btn { position: fixed; top: 30px; left: 30px; color: white; opacity: 0.6; z-index: 2000; }
         .size-control {
             position: fixed; left: -140px; top: 50vh; transform: translateY(-50%) rotate(-90deg);
             width: 500px; display: flex; align-items: center; justify-content: center; z-index: 1500;
         }
-        .size-control input { cursor: pointer; accent-color: var(--accent); width: 100%; height: 12px; border-radius: 10px; }
+        .size-control input { cursor: pointer; accent-color: var(--accent); width: 100%; }
 
-        .main-content { 
-            flex: 1; padding: 60px 40px 60px 180px; width: 100%; box-sizing: border-box;
-            display: flex; flex-direction: column; align-items: center;
-        }
-        
+        .main-content { flex: 1; padding: 60px 40px 60px 180px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; }
-        
-        .card { 
-            position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            max-width: 800px;
-            transition: width 0.1s ease-out; display: inline-block;
-        }
-        
-        .card img { 
-            width: 100%; border-radius: 12px; display: block; 
-            transition: box-shadow 0.2s ease;
-        }
-        
+        .card { position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); max-width: 800px; transition: width 0.1s ease-out; }
+        .card img { width: 100%; border-radius: 12px; display: block; transition: box-shadow 0.2s ease; }
         .tray-card img { box-shadow: 0 0 0 var(--border-dynamic) var(--gold); }
         .card.selected img { box-shadow: 0 0 0 var(--border-dynamic) var(--accent); }
 
-        .zoom-btn {
-            position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.8); 
-            color: white; border-radius: 50%; width: 36px; height: 36px; 
-            display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; z-index: 100;
-        }
+        .zoom-btn { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.8); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; z-index: 100; }
         .card:hover .zoom-btn { opacity: 1; }
 
-        .global-full #pool .card { opacity: 0.2; filter: grayscale(100%) blur(2px); }
-        .group-active .card:not(.selected) { opacity: 0.15; filter: blur(3px); transform: scale(0.92); }
-
-        .global-section { margin-top: 100px; padding-top: 80px; border-top: 1px solid #222; width: 100%; }
-        .global-header { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px; }
-        .shuffle-icon { cursor: pointer; fill: #666; transition: 0.3s; width: 28px; }
-        .shuffle-icon:hover { fill: white; transform: rotate(180deg); }
-
-        .selection-tray { 
-            margin-top: 40px; min-height: 100px; padding: 40px; 
-            background: rgba(255,255,255,0.02); border-radius: 30px; border: 2px dashed #444;
-            display: none; justify-content: center; gap: 40px; align-items: center; flex-wrap: wrap;
-        }
-
-        #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px);
-            display: none; justify-content: center; align-items: center; z-index: 5000;
-        }
+        .selection-tray { margin-top: 40px; min-height: 100px; padding: 40px; background: rgba(255,255,255,0.02); border-radius: 30px; border: 2px dashed #444; display: none; justify-content: center; gap: 40px; align-items: center; flex-wrap: wrap; }
+        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(35px); display: none; justify-content: center; align-items: center; z-index: 5000; }
         #lightbox.active { display: flex; }
-        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; box-shadow: 0 0 80px rgba(0,0,0,0.9); }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 15px; }
 
-        #submit-btn { 
-            display: none; background: var(--accent); color: white; padding: 25px 90px; 
-            border-radius: 100px; border: none; cursor: pointer; font-weight: bold; 
-            font-size: 1.4rem; margin: 100px auto; 
-        }
+        #submit-btn { display: none; background: var(--accent); color: white; padding: 20px 60px; border-radius: 100px; border: none; cursor: pointer; font-weight: bold; margin: 50px auto; }
     </style>
 </head>
 <body>
 
-    <a href="../home.html" class="home-btn">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </a>
+    <a href="../home.html" class="home-btn"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
 
     <div class="size-control">
         <input type="range" min="150" max="800" value="250" id="globalSlider" oninput="handleResize(this.value)">
@@ -95,120 +57,122 @@
 
     <div class="main-content">
         <h1>Miniaturas Concepto Integral</h1>
+        
+        <div id="debug-box">
+            <b>Debug First Image:</b><br>
+            Base: <span id="debug-base">---</span><br>
+            Final: <span id="debug-final">---</span>
+        </div>
+
         <div id="concepts">
     <div class="concept-block">
-        <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 2</h2>
+        <h2 style="margin-top:40px; opacity:0.5;">Variación 2</h2>
         <div class="version-grid" id="grid-2">
             <div class="card" onclick="toggleConcept('2', '1SLwxViSkpCsKtgMiQ9lcBfctkYlrPq7D', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s250">
+                <img id="first-thumb-img" class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1HwXJbge7-pE3NqkTEFeqPIQNbD4ETB2h', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1pmlnxgLdfyBUhvYTBKHS7mw2v4VaF7NA', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1jP-cL7JKOUykrYSpXI5QWnQxvjJiGjdg', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1S4V1etIZiLqOqSb6wxD39iMdA4nTPTdW', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1QIKUe6K5ZJ3Ygcom0_WSighrv09P38lf', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '15JXrUhjGVK6dZC_LwcPp8TP7IhnApqN7', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s250">
             </div></div></div>
     <div class="concept-block">
-        <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 3</h2>
+        <h2 style="margin-top:40px; opacity:0.5;">Variación 3</h2>
         <div class="version-grid" id="grid-3">
             <div class="card" onclick="toggleConcept('3', '1g6iDby9Jn3T9yUncSW14s2Y0_WYjEcYU', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s250">
+                <img id="first-thumb-img" class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1RrtWBv7OVssgQQ4IUdSUmwNGPB3aQq8u', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1CGKzQk2a_dHQa30oRSwQ-lZwj0loRgUP', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1Wcbwr9IkmeLnkxOM-Wt45m4t6XdJRfnS', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s250">
             </div></div></div>
     <div class="concept-block">
-        <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 4</h2>
+        <h2 style="margin-top:40px; opacity:0.5;">Variación 4</h2>
         <div class="version-grid" id="grid-4">
             <div class="card" onclick="toggleConcept('4', '1k4vt--M0x4zXKuLTU8BDDqkuyiQLqqRa', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s250">
+                <img id="first-thumb-img" class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s250">
             </div>
             <div class="card" onclick="toggleConcept('4', '1qHhb0oWjsRjXvohyx-FYCZydq3Q7ya7n', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s250">
             </div>
             <div class="card" onclick="toggleConcept('4', '1po5Ac4B1cwmpZrbfwGIYeWlEcu3xkaR9', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA')">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s250">
+                <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s250">
             </div></div></div>
-        <div class="global-section" id="global-section">
-            <div class="global-header">
-                <h2 style="color:var(--gold); font-weight:300;">Top 3 Global</h2>
-                <svg class="shuffle-icon" onclick="shufflePool()" viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.45 20 9.5V4h-5.5zm.73 7.72l1.41 1.41 2.36-2.36L20 12V6.5h-5.5l2.04 2.04-1.31 1.31z"/></svg>
-            </div>
+        <div class="global-section">
+            <h2 style="color:var(--gold); margin-top:80px; text-align:center;">Top 3 Global</h2>
             <div class="version-grid" id="pool"></div>
             <div class="selection-tray" id="tray"></div>
         </div>
         <button id="submit-btn" onclick="sendData()">Enviar Selección</button>
     </div>
 
-    <div id="lightbox" onclick="this.classList.remove('active')">
-        <img id="zoomImg" src="">
-    </div>
+    <div id="lightbox" onclick="this.classList.remove('active')"><img id="zoomImg" src=""></div>
 
     <script>
         const ratings = { videoID: "concepto-integral", winners: {}, top3: [] };
@@ -216,51 +180,39 @@
 
         function handleResize(val) {
             document.documentElement.style.setProperty('--thumb-size', val + 'px');
-            document.querySelectorAll('.thumb-img').forEach(img => {
-                const base = img.getAttribute('data-base');
-                // CLEAN URL: Split at =s and take only the first part before adding new size
-                const baseUrl = base.split('=s')[0];
-                img.src = baseUrl + '=s' + val;
+            
+            const imgs = document.querySelectorAll('.thumb-img');
+            imgs.forEach((img, idx) => {
+                const base = img.getAttribute('data-base').split('=')[0];
+                const finalUrl = base + "=s" + val;
+                img.src = finalUrl;
+
+                // Update debugger with the first image info
+                if(img.id === 'first-thumb-img') {
+                    document.getElementById('debug-base').innerText = base;
+                    document.getElementById('debug-final').innerText = finalUrl;
+                }
             });
         }
 
         function openZoom(e, base) {
             e.stopPropagation();
-            const lightbox = document.getElementById('lightbox');
-            const zoomImg = document.getElementById('zoomImg');
-            // CLEAN URL for zoom as well
-            const baseUrl = base.split('=s')[0];
-            zoomImg.src = baseUrl + '=s1000'; 
-            lightbox.classList.add('active');
-        }
-
-        function updateUI() {
-            const hasSel = Object.keys(ratings.winners).length > 0 || ratings.top3.length > 0;
-            document.getElementById('submit-btn').style.display = hasSel ? 'block' : 'none';
-            const tray = document.getElementById('tray');
-            tray.style.display = ratings.top3.length > 0 ? 'flex' : 'none';
-            const gSection = document.getElementById('global-section');
-            ratings.top3.length === 3 ? gSection.classList.add('global-full') : gSection.classList.remove('global-full');
+            const baseUrl = base.split('=')[0];
+            document.getElementById('zoomImg').src = baseUrl + "=s1000";
+            document.getElementById('lightbox').classList.add('active');
         }
 
         function toggleConcept(cId, imgId, el) {
             const grid = document.getElementById('grid-'+cId);
             if (el.classList.contains('selected')) {
                 el.classList.remove('selected');
-                grid.classList.remove('group-active');
                 delete ratings.winners[cId];
             } else {
                 grid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
                 el.classList.add('selected');
-                grid.classList.add('group-active');
                 ratings.winners[cId] = imgId;
             }
             updateUI();
-        }
-
-        function shufflePool() {
-            currentPoolData.sort(() => Math.random() - 0.5);
-            renderGlobal();
         }
 
         function renderGlobal() {
@@ -269,31 +221,33 @@
             const trayEl = document.getElementById('tray');
 
             poolEl.innerHTML = currentPoolData.filter(img => !ratings.top3.includes(img.imageID)).map(v => {
-                const baseUrl = v.baseUrl.split('=s')[0];
+                const cleanBase = v.baseUrl.split('=')[0];
                 return `
                 <div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
-                    <div class="zoom-btn" onclick="openZoom(event, '${v.baseUrl}')">
-                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                    </div>
-                    <img class="thumb-img" data-base="${v.baseUrl}" src="${baseUrl}=s${size}">
+                    <img class="thumb-img" data-base="${v.baseUrl}" src="${cleanBase}=s${size}">
                 </div>`;
             }).join('');
 
             trayEl.innerHTML = ratings.top3.map(id => {
                 const img = currentPoolData.find(v => v.imageID === id);
-                const baseUrl = img.baseUrl.split('=s')[0];
+                const cleanBase = img.baseUrl.split('=')[0];
                 return `<div class="card tray-card" onclick="ratings.top3 = ratings.top3.filter(i=>i!=='${id}'), renderGlobal()">
-                    <img class="thumb-img" data-base="${img.baseUrl}" src="${baseUrl}=s${size}">
+                    <img class="thumb-img" data-base="${img.baseUrl}" src="${cleanBase}=s${size}">
                 </div>`;
             }).join('');
-            updateUI();
+            
+            const tray = document.getElementById('tray');
+            tray.style.display = ratings.top3.length > 0 ? 'flex' : 'none';
+            document.getElementById('submit-btn').style.display = (Object.keys(ratings.winners).length > 0 || ratings.top3.length > 0) ? 'block' : 'none';
+        }
+
+        function updateUI() {
+            document.getElementById('submit-btn').style.display = (Object.keys(ratings.winners).length > 0 || ratings.top3.length > 0) ? 'block' : 'none';
         }
 
         renderGlobal();
-
-        function sendData() {
-            alert("¡Selección enviada!");
-        }
+        // Initialize debugger
+        handleResize(250);
     </script>
 </body>
 </html>
