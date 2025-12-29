@@ -1,3 +1,6 @@
+* {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, fill 0.5s ease, stroke 0.5s ease;
+}
 :root {
   --bg-color: #000;
   --text-color: #fff;
@@ -38,7 +41,7 @@ body {
   font-family: sans-serif;
   text-align: center;
   padding: 3rem 1rem;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.5s ease, background-image 0.5s ease, color 0.5s ease;
 }
 
 .mode-toggle-container {
