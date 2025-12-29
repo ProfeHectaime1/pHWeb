@@ -10,7 +10,7 @@
             --gold: #f1c40f; 
             --bg: #0a0a0a; 
             --thumb-size: 250px;
-            --border-dynamic: calc(var(--thumb-size) * 0.015); /* Thinner border as requested */
+            --border-dynamic: calc(var(--thumb-size) * 0.012); /* Even thinner border */
         }
         
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; overflow-x: hidden; }
@@ -18,7 +18,7 @@
         .home-btn { position: fixed; top: 30px; left: 30px; color: white; opacity: 0.6; transition: 0.3s; z-index: 2000; }
         .home-btn:hover { opacity: 1; color: var(--accent); }
 
-        /* Vertical Slider - Centered and Wide */
+        /* Centered Sidebar Slider */
         .size-control {
             position: fixed; left: -140px; top: 50vh; transform: translateY(-50%) rotate(-90deg);
             width: 500px; display: flex; align-items: center; justify-content: center; z-index: 1500;
@@ -34,13 +34,11 @@
         
         .card { 
             position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            max-width: 750px; /* Clipped max size for alignment */
-            transition: width 0.1s ease-out; display: inline-block;
+            max-width: 750px; transition: width 0.1s ease-out; display: inline-block;
         }
         
+        /* Direct image stroke fix */
         .card img { width: 100%; border-radius: 12px; display: block; transition: box-shadow 0.2s ease; }
-        
-        /* Thinner border following thumbnail */
         .tray-card img { box-shadow: 0 0 0 var(--border-dynamic) var(--gold); }
         .card.selected img { box-shadow: 0 0 0 var(--border-dynamic) var(--accent); }
 
@@ -97,43 +95,43 @@
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1HwXJbge7-pE3NqkTEFeqPIQNbD4ETB2h', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBODS-x6vUSWN9Vrl7ADgp_dGn2TCctwbzCE5lZGkNMePbtbI1kPgcoayHTEkWjG9HStYBQcQXALt4ngeH5q1nSzJG36wT8OyvqFjy0rzmCx_DU=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1pmlnxgLdfyBUhvYTBKHS7mw2v4VaF7NA', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNbipGwEFiLuE7KShfW3c1g5PFbC0gTzA78l4ODg10ZxGwC5oFthJBp7pWL__B53w449cpNmVmmIoqQoz5UcwMoMPp378CjlRwpMfvZxRFUk4s=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1jP-cL7JKOUykrYSpXI5QWnQxvjJiGjdg', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPdIKIi7XMgtBC0R7I3YaYcW2riaDNOD2EKcLjfTSeslbeRQqEe7xPBB6r8KMUvpi-0yzoFgW11U28yCXa-kGzDOumuxGO63ExnqHR6Q5sq7tw=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1S4V1etIZiLqOqSb6wxD39iMdA4nTPTdW', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPThp4uChxc7LXQz8H8x9lEmF-aaxjtTLMsRLFjbjihuZO34Fl_baHgHzt-LeCySfQyv3O_Au3g0Y3Vf3dtpjSXnR54nH-qcGB8FjqtDEKJ2A=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '1QIKUe6K5ZJ3Ygcom0_WSighrv09P38lf', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNPGDfaxPoUdaRb7rPesp0qtdTYNTh9iOqqmoGsXUWwMYL4yxQatEhKrpn7O4PaTUW1gl3kJDDqEzIPv_pOecoRcEsWWhPzXfQx3cM-qul9lA=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('2', '15JXrUhjGVK6dZC_LwcPp8TP7IhnApqN7', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s220=s250">
             </div></div></div>
     <div class="concept-block">
         <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 3</h2>
@@ -142,31 +140,31 @@
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1RrtWBv7OVssgQQ4IUdSUmwNGPB3aQq8u', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMf3i4tuwESenPSGxqoKONktP9KhiD3Hk5rzHrMPRiSnPvjMdGeWdA2kUAlaNcDtW6W7fqJRMwymNhBdVrlScUa3LnSwr8__EfLfBFAo_yeNuY=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1FzSnc0pZ06beJItC8vq7ea6bpaA4kVr0', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBPNsANmD3AleRwrobLnEl4RuTkWjPrCmI-2mHWihdOnaFVLzrapckD1J-q0moiCmQUSXaz_Oq7sWL3YEb6-gDgP6OcJ_zUontpdyu0QTHrU_vk=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1CGKzQk2a_dHQa30oRSwQ-lZwj0loRgUP', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMULy8W2XZGEQe7IyJnlJKwkHH6qyMW6L_QmrcKm2ZBx6X6fIk0LYXmJA-5-ectHDulIpJFiHD37vS9h1JurQNq5PDiSFlIIQmiBqVueWV7mk0=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('3', '1Wcbwr9IkmeLnkxOM-Wt45m4t6XdJRfnS', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s220=s250">
             </div></div></div>
     <div class="concept-block">
         <h2 style="margin-top:80px; opacity:0.5; font-weight:300;">Variación 4</h2>
@@ -175,19 +173,19 @@
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('4', '1qHhb0oWjsRjXvohyx-FYCZydq3Q7ya7n', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOZtkWKV_RkTZjclnw9C6PD6B8k9_BUEpLRlmJqwPCUPfqJL0ZB_nBUaelKVotMY62jBHhHap4b2g09pxtifD8OTHyDw7TnGATDKQGV5rV50zA=s220=s250">
             </div>
             <div class="card" onclick="toggleConcept('4', '1po5Ac4B1cwmpZrbfwGIYeWlEcu3xkaR9', this)">
                 <div class="zoom-btn" onclick="openZoom(event, 'https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220')">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                 </div>
-                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220&sz=s250">
+                <img class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBM5AAmzRbBWuNmjE_pVkKr-lvn6yGX84vy2uZ2P9hvuzZWsQMqT6iIIhmompUqSxsnTGWPHUvTb1h-PuBrDAB93M8GM2nPP7ThalkUsNERKTA=s220=s250">
             </div></div></div>
         <div class="global-section" id="global-section">
             <div class="global-header">
@@ -212,8 +210,7 @@
             document.documentElement.style.setProperty('--thumb-size', val + 'px');
             document.querySelectorAll('.thumb-img').forEach(img => {
                 const base = img.getAttribute('data-base');
-                // Google Thumbnail API uses &sz=sXXX
-                img.src = base + '&sz=s' + val;
+                img.src = base + '=s' + val;
             });
         }
 
@@ -221,7 +218,7 @@
             e.stopPropagation();
             const lightbox = document.getElementById('lightbox');
             const zoomImg = document.getElementById('zoomImg');
-            zoomImg.src = baseUrl + '&sz=s1000'; 
+            zoomImg.src = baseUrl + '=s1000'; 
             lightbox.classList.add('active');
         }
 
@@ -245,11 +242,6 @@
             updateUI();
         }
 
-        function shufflePool() {
-            currentPoolData.sort(() => Math.random() - 0.5);
-            renderGlobal();
-        }
-
         function renderGlobal() {
             const size = document.getElementById('globalSlider').value;
             const poolEl = document.getElementById('pool');
@@ -260,19 +252,23 @@
                     <div class="zoom-btn" onclick="openZoom(event, '${v.baseUrl}')">
                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                     </div>
-                    <img class="thumb-img" data-base="${v.baseUrl}" src="${v.baseUrl}&sz=s${size}">
+                    <img class="thumb-img" data-base="${v.baseUrl}" src="${v.baseUrl}=s${size}">
                 </div>`).join('');
 
             trayEl.innerHTML = ratings.top3.map(id => {
                 const img = currentPoolData.find(v => v.imageID === id);
                 return `<div class="card tray-card" onclick="ratings.top3 = ratings.top3.filter(i=>i!=='${id}'), renderGlobal()">
-                    <img class="thumb-img" data-base="${img.baseUrl}" src="${img.baseUrl}&sz=s${size}">
+                    <img class="thumb-img" data-base="${img.baseUrl}" src="${img.baseUrl}=s${size}">
                 </div>`;
             }).join('');
             updateUI();
         }
 
         renderGlobal();
+
+        function sendData() {
+            alert("¡Selección enviada!");
+        }
     </script>
 </body>
 </html>
