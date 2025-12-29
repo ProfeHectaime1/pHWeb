@@ -12,11 +12,10 @@
         }
         body { font-family: sans-serif; background: var(--bg); color: white; margin: 0; padding: 40px; display: flex; flex-direction: column; align-items: center; }
         
-        /* Debugger Style */
         #debug-box { 
-            background: #222; border: 1px solid #444; padding: 10px; border-radius: 8px; 
+            background: #222; border: 1px solid #444; padding: 15px; border-radius: 8px; 
             font-family: monospace; font-size: 12px; color: #f1c40f; margin-bottom: 20px;
-            width: 100%; max-width: 800px; word-break: break-all;
+            width: 100%; max-width: 900px; word-break: break-all;
         }
 
         .size-control {
@@ -25,9 +24,9 @@
         }
         .size-control input { width: 100%; cursor: pointer; accent-color: var(--accent); }
 
-        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .card { width: var(--thumb-size); transition: width 0.1s ease-out; border-radius: 12px; overflow: hidden; border: 2px solid #333; }
-        .card img { width: 100%; display: block; }
+        .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 50px;}
+        .card { width: var(--thumb-size); transition: width 0.1s ease-out; border-radius: 12px; overflow: hidden; border: 2px solid #333; background: #111; aspect-ratio: 16/9; }
+        .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
     </style>
 </head>
 <body>
@@ -35,18 +34,18 @@
     <h1>Miniaturas Concepto Integral</h1>
 
     <div id="debug-box">
-        <b>DEBUG (First Image):</b><br>
-        Base detectada: <span id="db-base">---</span><br>
+        <b>DEBUGGER (Sandbox Logic):</b><br>
+        Base: <span id="db-base">---</span><br>
         URL Final: <span id="db-final">---</span>
     </div>
 
     <div class="size-control">
-        <input type="range" min="150" max="1000" value="250" id="globalSlider" oninput="handleResize(this.value)">
+        <input type="range" min="150" max="1000" value="250" id="globalSlider">
     </div>
 
     <div id="concepts">
     <div class="concept-block">
-        <h2>Variación 2</h2>
+        <h2 style="opacity: 0.6;">Variación 2</h2>
         <div class="version-grid">
             <div class="card">
                 <img id="target-img" class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBOGFKvBwJhwlXOIqUubNgvi_uw-A7zGmeRnZUhgCM1v-RSN2oEDO7JslggE0ludAD-N9-GP1eVO3pjanLaXK_yBf1R0szPLoJh-YZuNhr4kGA=s250">
@@ -70,7 +69,7 @@
                 <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBNjuyc9uPqEEIPpYjgvKUUHk4FCMoIqG0ZjAKt0Z3b2nkWgQPPlPcUkY9oFGb-_JLj-wG-A9vcJKNjOaq1G4hoBVFEhjlWcLPh4DZN432KidKA=s250">
             </div></div></div>
     <div class="concept-block">
-        <h2>Variación 3</h2>
+        <h2 style="opacity: 0.6;">Variación 3</h2>
         <div class="version-grid">
             <div class="card">
                 <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMzEJpsTLPGUFYzjQIF4pt2Xq1kXmTzBNMPw9aHwSZsDKdB0SaknnNFa1Y0-aaaTqjcWVI468HmpZ-I2WKYuuoBPeybhkDr_OSefCD1LiBDqH8=s250">
@@ -88,7 +87,7 @@
                 <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMQcOAo7VQfRBLNgiuVoYvXIsStzXLNeDKJbNhoLmZHFfOhn5tj-8tCNkESHbmSRPWisrGWI3Pb7SE1Ec4GSJmYIucVuSfNpgprJo7tvDc84Q=s250">
             </div></div></div>
     <div class="concept-block">
-        <h2>Variación 4</h2>
+        <h2 style="opacity: 0.6;">Variación 4</h2>
         <div class="version-grid">
             <div class="card">
                 <img  class="thumb-img" data-base="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4" src="https://lh3.googleusercontent.com/drive-storage/AJQWtBMo9G9hoYiHJ25SXZ4bMsXaK15uLb4MGWZyBtpiTAQfFDTiFpWuBzDemw_fI7T2AqKLEqpnP5jCRt21_jP3heyl9AKE6hwWL4T273gIMbzncl4=s250">
@@ -102,27 +101,41 @@
     </div>
 
     <script>
-        function handleResize(val) {
-            // Update CSS
-            document.documentElement.style.setProperty('--thumb-size', val + 'px');
+        const slider = document.getElementById('globalSlider');
+        const debugBase = document.getElementById('db-base');
+        const debugFinal = document.getElementById('db-final');
+
+        // This function mimics your working sandbox exactly
+        slider.addEventListener('input', function() {
+            const size = this.value;
             
-            // Update all images
-            const imgs = document.querySelectorAll('.thumb-img');
-            imgs.forEach(img => {
-                const base = img.getAttribute('data-base');
-                const newUrl = base + "=s" + val;
+            // 1. Update visual size
+            document.documentElement.style.setProperty('--thumb-size', size + 'px');
+            
+            // 2. Rebuild every image
+            document.querySelectorAll('.thumb-img').forEach(img => {
+                // We use data-base instead of splitting current src to avoid "stacking" strings
+                const baseUrl = img.getAttribute('data-base');
+                const newUrl = baseUrl + "=s" + size;
+                
                 img.src = newUrl;
 
-                // Update Debugger for the first image
+                // Update debug info for the specific target
                 if(img.id === 'target-img') {
-                    document.getElementById('db-base').innerText = base;
-                    document.getElementById('db-final').innerText = newUrl;
+                    debugBase.innerText = baseUrl;
+                    debugFinal.innerText = newUrl;
                 }
             });
-        }
+        });
 
-        // Run once on load to populate debugger
-        handleResize(250);
+        // Initialize display for the debugger on load
+        window.addEventListener('load', () => {
+            const firstImg = document.getElementById('target-img');
+            if(firstImg) {
+                debugBase.innerText = firstImg.getAttribute('data-base');
+                debugFinal.innerText = firstImg.src;
+            }
+        });
     </script>
 </body>
 </html>
