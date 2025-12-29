@@ -15,7 +15,6 @@
         
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; overflow-x: hidden; }
         
-        /* Debug Bar Styling */
         #debug-box { 
             background: #222; border: 1px solid #444; padding: 10px; border-radius: 8px; 
             font-family: monospace; font-size: 11px; color: #f1c40f; margin: 20px 0;
@@ -31,7 +30,7 @@
 
         .main-content { flex: 1; padding: 60px 40px 60px 180px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
         .version-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; }
-        .card { position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); max-width: 800px; transition: width 0.1s ease-out; }
+        .card { position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); max-width: 750px; transition: width 0.1s ease-out; }
         .card img { width: 100%; border-radius: 12px; display: block; transition: box-shadow 0.2s ease; }
         .tray-card img { box-shadow: 0 0 0 var(--border-dynamic) var(--gold); }
         .card.selected img { box-shadow: 0 0 0 var(--border-dynamic) var(--accent); }
@@ -52,7 +51,7 @@
     <a href="../home.html" class="home-btn"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
 
     <div class="size-control">
-        <input type="range" min="150" max="800" value="250" id="globalSlider" oninput="handleResize(this.value)">
+        <input type="range" min="150" max="750" value="250" id="globalSlider" oninput="handleResize(this.value)">
     </div>
 
     <div class="main-content">
@@ -60,8 +59,7 @@
         
         <div id="debug-box">
             <b>Debug First Image:</b><br>
-            Base: <span id="debug-base">---</span><br>
-            Final: <span id="debug-final">---</span>
+            Final URL: <span id="debug-final">---</span>
         </div>
 
         <div id="concepts">
@@ -180,18 +178,12 @@
 
         function handleResize(val) {
             document.documentElement.style.setProperty('--thumb-size', val + 'px');
-            
             const imgs = document.querySelectorAll('.thumb-img');
-            imgs.forEach((img, idx) => {
+            imgs.forEach((img) => {
                 const base = img.getAttribute('data-base').split('=')[0];
                 const finalUrl = base + "=s" + val;
                 img.src = finalUrl;
-
-                // Update debugger with the first image info
-                if(img.id === 'first-thumb-img') {
-                    document.getElementById('debug-base').innerText = base;
-                    document.getElementById('debug-final').innerText = finalUrl;
-                }
+                if(img.id === 'first-thumb-img') document.getElementById('debug-final').innerText = finalUrl;
             });
         }
 
@@ -206,7 +198,6 @@
             const grid = document.getElementById('grid-'+cId);
             if (el.classList.contains('selected')) {
                 el.classList.remove('selected');
-                delete ratings.winners[cId];
             } else {
                 grid.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
                 el.classList.add('selected');
@@ -218,16 +209,14 @@
         function renderGlobal() {
             const size = document.getElementById('globalSlider').value;
             const poolEl = document.getElementById('pool');
-            const trayEl = document.getElementById('tray');
-
             poolEl.innerHTML = currentPoolData.filter(img => !ratings.top3.includes(img.imageID)).map(v => {
                 const cleanBase = v.baseUrl.split('=')[0];
-                return `
-                <div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
+                return `<div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
                     <img class="thumb-img" data-base="${v.baseUrl}" src="${cleanBase}=s${size}">
                 </div>`;
             }).join('');
 
+            const trayEl = document.getElementById('tray');
             trayEl.innerHTML = ratings.top3.map(id => {
                 const img = currentPoolData.find(v => v.imageID === id);
                 const cleanBase = img.baseUrl.split('=')[0];
@@ -236,9 +225,8 @@
                 </div>`;
             }).join('');
             
-            const tray = document.getElementById('tray');
-            tray.style.display = ratings.top3.length > 0 ? 'flex' : 'none';
-            document.getElementById('submit-btn').style.display = (Object.keys(ratings.winners).length > 0 || ratings.top3.length > 0) ? 'block' : 'none';
+            document.getElementById('tray').style.display = ratings.top3.length > 0 ? 'flex' : 'none';
+            updateUI();
         }
 
         function updateUI() {
@@ -246,7 +234,6 @@
         }
 
         renderGlobal();
-        // Initialize debugger
         handleResize(250);
     </script>
 </body>
