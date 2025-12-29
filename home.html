@@ -3,200 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Biblioteca Visual pH</title>
+    <title>Inicio - Profe Héctor</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="modo-claro-oscuro.css">
     <style>
         :root {
-            --primary: #00ff88; /* A more vibrant neon green */
-            --bg: #0b0e11;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --primary: #2ecc71;
+            --card-bg: rgba(0, 0, 0, 0.85);
+            --card-bg-light: rgba(255, 255, 255, 0.9);
             --text-main: #ffffff;
-            --text-dim: #a0a0a0;
+            --text-dim: #aaaaaa;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            background-image: radial-gradient(circle at 50% -20%, #1a3c2f 0%, var(--bg) 80%);
-            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
+            transition: background 0.3s ease;
+        }
+
+        /* Background Logic */
+        body:not(.light) {
+            background-image: url('fondo-index-pH.png');
+            color: var(--text-main);
+        }
+
+        body.light {
+            background-image: url('fondo-index-claro-pH.png');
+            color: #333;
         }
 
         /* Hero Section */
-        .hero {
+        .header {
             text-align: center;
-            margin-bottom: 60px;
-            animation: fadeIn 1s ease-out;
+            margin-bottom: 50px;
+            z-index: 10;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
+        .header h1 {
+            font-size: 3rem;
             margin: 0;
-            letter-spacing: -2px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-dim);
-            font-size: 1.2rem;
-            margin-top: 10px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         /* Grid Layout */
-        .container {
-            display: flex;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             width: 90%;
-            max-width: 1000px;
-            perspective: 1000px;
+            max-width: 900px;
+            z-index: 10;
         }
 
-        .main-card {
-            flex: 1;
+        /* Card Design */
+        .card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
             padding: 40px;
-            text-align: left;
+            border-radius: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-height: 300px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .main-card:hover {
-            transform: translateY(-12px) scale(1.02);
+        body.light .card {
+            background: var(--card-bg-light);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 136, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* Visual Decor for Cards */
-        .main-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.05) 0%, transparent 70%);
-            pointer-events: none;
+        .card h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
         }
 
-        .icon-box {
-            font-size: 3rem;
-            margin-bottom: auto;
-        }
-
-        .main-card h2 {
-            font-size: 1.8rem;
-            margin: 20px 0 10px;
-            font-weight: 700;
-        }
-
-        .main-card p {
-            color: var(--text-dim);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* Tag Label */
-        .tag {
-            display: inline-block;
-            background: rgba(0, 255, 136, 0.1);
+        .card h3 {
+            margin: 10px 0;
             color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            width: fit-content;
+            font-size: 1.5rem;
         }
 
-        /* Footer / Logout */
-        .footer {
-            margin-top: 60px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
+        .card p {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
-        .logout-btn {
-            background: none;
-            border: 1px solid #333;
-            color: #ff4757;
-            padding: 8px 20px;
-            border-radius: 100px;
+        body.light .card p {
+            color: #666;
+        }
+
+        /* UI Elements */
+        .mode-toggle {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
             cursor: pointer;
+            user-select: none;
+            transform: scale(1.4);
+            z-index: 1000;
+        }
+
+        .logout {
+            margin-top: 40px;
+            color: #ff4757;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
             font-size: 0.9rem;
+            opacity: 0.8;
             transition: 0.3s;
+            z-index: 10;
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 71, 87, 0.1);
-            border-color: #ff4757;
+        .logout:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .hero h1 { font-size: 2.5rem; }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
-        <h1>Biblioteca Visual pH</h1>
-        <p>Explora el arte de las matemáticas y el diseño visual</p>
+    <div class="mode-toggle" id="modo-toggle" title="Cambiar modo">⚙</div>
+
+    <header class="header">
+        <h1>Inicio</h1>
+        <p>Selecciona una sección para comenzar</p>
     </header>
 
-    <main class="container">
-        <a href="biblioteca-visual.html" class="main-card">
-            <div class="icon-box">🎬</div>
-            <div>
-                <span class="tag">Contenido</span>
-                <h2>Biblioteca</h2>
-                <p>Mira las animaciones matemáticas y explicaciones visuales interactivas.</p>
-            </div>
-        </a>
+    <main class="grid">
+        <div class="card" onclick="window.location.href='biblioteca-visual.html'">
+            <h2>🎬</h2>
+            <h3>Biblioteca Visual pH</h3>
+            <p>Explora las animaciones y contenidos explicativos creados por mí.</p>
+        </div>
 
-        <a href="rating.html" class="main-card">
-            <div class="icon-box">🎨</div>
-            <div>
-                <span class="tag">Laboratorio</span>
-                <h2>Miniaturas</h2>
-                <p>Explora el proceso creativo y vota por las mejores portadas de los vídeos.</p>
-            </div>
-        </a>
+        <div class="card" onclick="window.location.href='rating.html'">
+            <h2>🎨</h2>
+            <h3>Miniaturas</h3>
+            <p>Echa un vistazo a las portadas de los vídeos y vota por tus favoritas.</p>
+        </div>
     </main>
 
-    <footer class="footer">
-        <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
-    </footer>
+    <p class="logout" onclick="logout()">Cerrar sesión</p>
 
     <script>
+        // --- Light/Dark Mode Logic ---
+        const modoGuardado = localStorage.getItem('modo');
+        if (modoGuardado === 'claro') {
+            document.body.classList.add('light');
+        }
+
+        document.getElementById("modo-toggle").addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            localStorage.setItem("modo", document.body.classList.contains("light") ? "claro" : "oscuro");
+        });
+
+        // --- Logout Logic ---
         function logout() {
-            // Logic for Firebase or session clearing
+            // If you are using Firebase, add auth.signOut() here
             window.location.href = "index.html";
         }
     </script>
