@@ -10,8 +10,8 @@
             --gold: #f1c40f; 
             --bg: #0a0a0a; 
             --thumb-size: 250px;
-            /* Thinner proportional border: 1.8% of width */
-            --border-dynamic: calc(var(--thumb-size) * 0.018);
+            /* Thin dynamic border: 1.5% of width */
+            --border-dynamic: calc(var(--thumb-size) * 0.015);
         }
         
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; display: flex; overflow-x: hidden; }
@@ -35,7 +35,7 @@
         
         .card { 
             position: relative; cursor: pointer; border-radius: 12px; width: var(--thumb-size); 
-            max-width: 800px; /* Clipped max size */
+            max-width: 800px;
             transition: width 0.1s ease-out; display: inline-block;
         }
         
@@ -216,18 +216,21 @@
 
         function handleResize(val) {
             document.documentElement.style.setProperty('--thumb-size', val + 'px');
-            // Update all images on the page to the new quality
             document.querySelectorAll('.thumb-img').forEach(img => {
                 const base = img.getAttribute('data-base');
-                img.src = base + '=s' + val;
+                // CLEAN URL: Split at =s and take only the first part before adding new size
+                const baseUrl = base.split('=s')[0];
+                img.src = baseUrl + '=s' + val;
             });
         }
 
-        function openZoom(e, baseUrl) {
+        function openZoom(e, base) {
             e.stopPropagation();
             const lightbox = document.getElementById('lightbox');
             const zoomImg = document.getElementById('zoomImg');
-            zoomImg.src = baseUrl + '=s1000'; // High Res Zoom
+            // CLEAN URL for zoom as well
+            const baseUrl = base.split('=s')[0];
+            zoomImg.src = baseUrl + '=s1000'; 
             lightbox.classList.add('active');
         }
 
@@ -265,24 +268,32 @@
             const poolEl = document.getElementById('pool');
             const trayEl = document.getElementById('tray');
 
-            poolEl.innerHTML = currentPoolData.filter(img => !ratings.top3.includes(img.imageID)).map(v => `
+            poolEl.innerHTML = currentPoolData.filter(img => !ratings.top3.includes(img.imageID)).map(v => {
+                const baseUrl = v.baseUrl.split('=s')[0];
+                return `
                 <div class="card" onclick="ratings.top3.length < 3 && (ratings.top3.push('${v.imageID}'), renderGlobal())">
                     <div class="zoom-btn" onclick="openZoom(event, '${v.baseUrl}')">
                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                     </div>
-                    <img class="thumb-img" data-base="${v.baseUrl}" src="${v.baseUrl}=s${size}">
-                </div>`).join('');
+                    <img class="thumb-img" data-base="${v.baseUrl}" src="${baseUrl}=s${size}">
+                </div>`;
+            }).join('');
 
             trayEl.innerHTML = ratings.top3.map(id => {
                 const img = currentPoolData.find(v => v.imageID === id);
+                const baseUrl = img.baseUrl.split('=s')[0];
                 return `<div class="card tray-card" onclick="ratings.top3 = ratings.top3.filter(i=>i!=='${id}'), renderGlobal()">
-                    <img class="thumb-img" data-base="${img.baseUrl}" src="${img.baseUrl}=s${size}">
+                    <img class="thumb-img" data-base="${img.baseUrl}" src="${baseUrl}=s${size}">
                 </div>`;
             }).join('');
             updateUI();
         }
 
         renderGlobal();
+
+        function sendData() {
+            alert("¡Selección enviada!");
+        }
     </script>
 </body>
 </html>
