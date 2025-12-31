@@ -352,13 +352,14 @@
                     img.src = newSrc;
                 }
             });
+            const preloader = new Image();
+            preloader.src = img.dataset.base + '_1000.png';
         };
 
         function openZoom(e, baseUrl) {
             e.stopPropagation();
             document.body.classList.add('modal-open');
-            // Full size suffix
-            document.getElementById('zoomImg').src = baseUrl + '_full.png';
+            document.getElementById('zoomImg').src = baseUrl + '_1000.png';
             document.getElementById('lightbox').classList.add('active');
         }
 
