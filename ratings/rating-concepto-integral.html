@@ -59,7 +59,7 @@
         </a>
 
         <div class="size-control">
-            <input type="range" min="250" max="1000" step="250" value="250" id="globalSlider">
+            <input type="range" min="100" max="1000" value="250" id="globalSlider">
         </div>
 
         <div class="main-content">
@@ -332,11 +332,25 @@
 
         // Logic to swap suffix based on slider
         slider.oninput = (e) => {
-            const val = e.target.value;
+            const val = parseInt(e.target.value);
+            
+            // 1. Smoothly scale the container size (Continuous)
             document.documentElement.style.setProperty('--thumb-size', val + 'px');
+            
+            // 2. Select the best source file based on the current size (Discrete thresholds)
+            let suffix = '250';
+            if (val > 750) suffix = '1000';
+            else if (val > 500) suffix = '750';
+            else if (val > 250) suffix = '500';
+            else suffix = '250';
+        
             document.querySelectorAll('.thumb-img').forEach(img => {
-                // Suffix logic: _250, _500, _750, _1000
-                img.src = img.dataset.base + '_' + val + '.png';
+                const newSrc = img.dataset.base + '_' + suffix + '.png';
+                
+                // Only update the src if it actually changed to prevent flickering
+                if (img.src !== newSrc) {
+                    img.src = newSrc;
+                }
             });
         };
 
